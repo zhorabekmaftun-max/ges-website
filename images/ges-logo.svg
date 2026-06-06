@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 384" fill="none">
+  <defs>
+    <!-- Yellow arc gradient -->
+    <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#FFE600"/>
+      <stop offset="50%"  stop-color="#F5D800"/>
+      <stop offset="100%" stop-color="#E8C800"/>
+    </linearGradient>
+    <!-- Green letter gradient (top-light to bottom-dark) -->
+    <linearGradient id="gLetterGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="#4EC44E"/>
+      <stop offset="40%"  stop-color="#2EA02E"/>
+      <stop offset="100%" stop-color="#1A6A1A"/>
+    </linearGradient>
+    <!-- Green arc gradient -->
+    <linearGradient id="greenArcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%"   stop-color="#3AB43A"/>
+      <stop offset="100%" stop-color="#1A6A1A"/>
+    </linearGradient>
+    <!-- Drop shadow filter for letters -->
+    <filter id="letterShadow" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="2" dy="3" stdDeviation="3" flood-color="rgba(0,0,0,0.5)"/>
+    </filter>
+    <!-- Gloss overlay for letters -->
+    <linearGradient id="gloss" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%"   stop-color="rgba(255,255,255,0.35)"/>
+      <stop offset="45%"  stop-color="rgba(255,255,255,0.05)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ── YELLOW OUTER ARC (crescent, right side) ── -->
+  <!-- Large yellow ellipse stroke, open on left -->
+  <path d="
+    M 135 18
+    C 240 -8, 430 40, 490 192
+    C 550 344, 440 380, 300 384
+    C 200 386, 100 360, 60 310
+    C 30 275, 28 240, 32 210
+  " stroke="url(#arcGrad)" stroke-width="32" fill="none" stroke-linecap="round"/>
+
+  <!-- ── GREEN OUTER ARC (top-left, thin) ── -->
+  <path d="
+    M 80 80
+    C 100 30, 160 8, 240 4
+    C 300 1, 355 10, 390 28
+  " stroke="url(#greenArcGrad)" stroke-width="14" fill="none" stroke-linecap="round"/>
+
+  <!-- ── BOTTOM GREEN ARC ── -->
+  <path d="
+    M 50 260
+    C 60 310, 90 345, 140 364
+    C 180 378, 230 385, 270 383
+  " stroke="url(#greenArcGrad)" stroke-width="14" fill="none" stroke-linecap="round"/>
+
+  <!-- ── LETTERS "GES" ── -->
+  <!-- G -->
+  <text x="52" y="228"
+    font-family="'Arial Black', 'Impact', sans-serif"
+    font-weight="900"
+    font-size="178"
+    letter-spacing="-4"
+    fill="url(#gLetterGrad)"
+    filter="url(#letterShadow)"
+    font-style="italic">GES</text>
+
+  <!-- Gloss overlay on letters -->
+  <text x="52" y="228"
+    font-family="'Arial Black', 'Impact', sans-serif"
+    font-weight="900"
+    font-size="178"
+    letter-spacing="-4"
+    fill="url(#gloss)"
+    font-style="italic">GES</text>
+
+  <!-- Dark outline on letters -->
+  <text x="52" y="228"
+    font-family="'Arial Black', 'Impact', sans-serif"
+    font-weight="900"
+    font-size="178"
+    letter-spacing="-4"
+    fill="none"
+    stroke="rgba(0,0,0,0.4)"
+    stroke-width="2"
+    font-style="italic">GES</text>
+
+  <!-- ── TAGLINE ── -->
+  <text x="260" y="300"
+    font-family="'Arial', sans-serif"
+    font-weight="400"
+    font-size="28"
+    letter-spacing="6"
+    fill="#8A8A8A"
+    text-anchor="middle"
+    font-style="normal">GLOBAL EDUCATION SAYRAM</text>
+</svg>

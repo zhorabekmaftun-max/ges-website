@@ -1,0 +1,2917 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GES — Global Education Sayram</title>
+  <meta name="description" content="GES — ведущий образовательный центр Казахстана. IELTS, SAT, TOEFL, языковые курсы и сопровождение при поступлении в зарубежные университеты.">
+  <!-- Open Graph / Social -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="GES — Global Education Sayram">
+  <meta property="og:description" content="Образовательный центр нового поколения. IELTS, SAT, TOEFL, языковые программы и поступление за рубеж.">
+  <meta property="og:image"       content="images/ges-logo@2x.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="914">
+  <link rel="icon" type="image/png" href="images/ges-logo-sm.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    /* ============================================================
+       BRAND COLORS — GES (from official logo)
+       Green Dark:    #1B6B1B  (bottom of GES letter gradient)
+       Green Mid:     #2EA02E  (mid gradient)
+       Green Light:   #4EC44E  (top of GES letter gradient)
+       Yellow:        #F5E000  (bright yellow arc / accent)
+       Yellow Light:  #FFE600
+       Dark:          #111111  (background)
+       White:         #FFFFFF
+    ============================================================ */
+    :root {
+      --green:       #2A9A2A;
+      --green-light: #4EC44E;
+      --green-dark:  #1B6B1B;
+      --green-deep:  #0D4D0D;
+      --yellow:      #F5E000;
+      --yellow-light:#FFE600;
+      --yellow-dark: #D4C000;
+      --dark:        #111111;
+      --dark-2:      #1A1A1A;
+      --charcoal:    #242424;
+      --white:       #FFFFFF;
+      --off-white:   #F7F8F5;
+      --gray:        #6B6B6B;
+      --gray-light:  #E4E8E0;
+
+      --glass-bg:     rgba(255,255,255,0.07);
+      --glass-border: rgba(255,255,255,0.14);
+      --glass-shadow: 0 8px 32px rgba(0,0,0,0.35);
+
+      --ease:        cubic-bezier(0.4, 0, 0.2, 1);
+      --radius:      16px;
+      --radius-lg:   24px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--white);
+      color: var(--dark);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1,h2,h3,h4 { font-family: 'Montserrat', sans-serif; font-weight: 800; line-height: 1.1; }
+    a { text-decoration: none; }
+
+    /* ============================================================
+       HEADER
+    ============================================================ */
+    .header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: 76px;
+      padding: 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      transition: background 0.4s var(--ease), backdrop-filter 0.4s, box-shadow 0.4s;
+    }
+    .header.scrolled {
+      background: rgba(12,18,12,0.82);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border-bottom: 1px solid rgba(42,154,42,0.22);
+      box-shadow: 0 4px 40px rgba(0,0,0,0.45);
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .logo-img {
+      height: 56px;
+      width: auto;
+      object-fit: contain;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      filter: drop-shadow(0 2px 10px rgba(0,0,0,0.45));
+      transition: filter 0.28s var(--ease), transform 0.28s var(--ease);
+    }
+    .logo:hover .logo-img {
+      filter: drop-shadow(0 4px 18px rgba(42,154,42,0.55)) brightness(1.06);
+      transform: scale(1.05);
+    }
+
+    /* Nav */
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      flex: 1;
+      justify-content: center;
+    }
+    .nav-link {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.78);
+      padding: 8px 13px;
+      border-radius: 8px;
+      transition: color 0.25s, background 0.25s;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+    .nav-link:hover {
+      color: var(--gold-light);
+      background: rgba(196,164,43,0.1);
+    }
+
+    /* Header controls */
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    /* Language switcher */
+    .lang-sw {
+      display: flex;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.11);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .lang-btn {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      padding: 7px 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .lang-btn:hover { color: rgba(255,255,255,0.85); }
+    .lang-btn.active {
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      color: #fff;
+    }
+
+    /* Phone */
+    .btn-phone {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.13);
+      border-radius: 9px;
+      padding: 8px 13px;
+      color: rgba(255,255,255,0.85);
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.25s;
+      white-space: nowrap;
+    }
+    .btn-phone:hover {
+      background: rgba(42,154,42,0.15);
+      border-color: rgba(42,154,42,0.35);
+      color: var(--green-light);
+    }
+
+    /* WhatsApp */
+    .btn-wa {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      border: none;
+      border-radius: 9px;
+      padding: 9px 14px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      transition: all 0.25s;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(37,211,102,0.28);
+    }
+    .btn-wa:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 7px 22px rgba(37,211,102,0.4);
+    }
+
+    /* Hamburger */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .menu-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    /* Mobile nav */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 76px; left: 0; right: 0;
+      background: rgba(12,12,12,0.97);
+      backdrop-filter: blur(24px);
+      padding: 20px 24px 28px;
+      flex-direction: column;
+      gap: 2px;
+      z-index: 998;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav .nav-link { font-size: 15px; padding: 13px 14px; display: block; }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 680px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Background layers */
+    .hero-bg-fallback {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 15% 65%, rgba(27,107,27,0.2) 0%, transparent 52%),
+        radial-gradient(ellipse at 85% 25%, rgba(245,224,0,0.07) 0%, transparent 52%),
+        linear-gradient(150deg, #080E08 0%, #0E160E 45%, #141E14 80%, #0C140C 100%);
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('images/interior.jpg');
+      background-size: cover;
+      /* Portrait photo: show reception desk area */
+      background-position: center 58%;
+      animation: slowZoom 24s ease-in-out infinite alternate;
+      transform-origin: center 25%;
+      /* No opacity trick — browser silently ignores missing images */
+      opacity: 1;
+    }
+    @keyframes slowZoom {
+      from { transform: scale(1.04); }
+      to   { transform: scale(1.10); }
+    }
+    /* Multi-layer overlay: left dark for text readability, right lighter to show yellow wall */
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(
+          105deg,
+          rgba(5,8,5,0.88) 0%,
+          rgba(8,12,8,0.72) 40%,
+          rgba(5,8,5,0.55) 65%,
+          rgba(5,8,5,0.42) 100%
+        );
+    }
+    /* Bottom fade to white (site body) */
+    .hero-overlay-fade {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 240px;
+      background: linear-gradient(to top, #ffffff 0%, rgba(255,255,255,0.0) 100%);
+      z-index: 2;
+    }
+
+    /* Hero content — same left edge as header logo (48px) */
+    .hero-inner {
+      position: relative;
+      z-index: 5;
+      width: 100%;
+      padding: 76px 48px 0 48px; /* left matches header padding */
+    }
+    /* Constrain text to left half so right side shows reception */
+    .hero-badge,
+    .hero-title,
+    .hero-sub,
+    .hero-cta {
+      max-width: 560px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: rgba(42,154,42,0.14);
+      border: 1px solid rgba(42,154,42,0.34);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 100px;
+      padding: 9px 20px;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: slideUp 0.8s 0.2s var(--ease) forwards;
+    }
+    .badge-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--yellow);
+      animation: pulse 2.4s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50%      { opacity:0.45; transform:scale(1.35); }
+    }
+    .hero-badge span {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--yellow-light);
+    }
+
+    .hero-title {
+      font-size: clamp(36px, 5.5vw, 74px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.04;
+      margin-bottom: 22px;
+      max-width: 560px;
+      opacity: 0;
+      animation: slideUp 0.85s 0.4s var(--ease) forwards;
+    }
+    .hero-title .gold {
+      background: linear-gradient(135deg, var(--yellow-light) 0%, var(--yellow) 60%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: clamp(15px, 1.9vw, 19px);
+      color: rgba(255,255,255,0.65);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 42px;
+      font-weight: 400;
+      opacity: 0;
+      animation: slideUp 0.85s 0.6s var(--ease) forwards;
+    }
+
+    .hero-cta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: slideUp 0.85s 0.8s var(--ease) forwards;
+    }
+
+    @keyframes slideUp {
+      from { opacity:0; transform:translateY(32px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* Buttons */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: linear-gradient(135deg, var(--yellow-light) 0%, var(--yellow) 55%, var(--yellow-dark) 100%);
+      color: var(--dark);
+      font-family: 'Inter', sans-serif;
+      font-size: 14.5px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+      padding: 15px 30px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.25s, box-shadow 0.25s;
+      box-shadow: 0 8px 28px rgba(245,224,0,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(245,224,0,0.45); }
+    .btn-primary:hover::after { opacity: 1; }
+
+    .btn-glass {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.18);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      color: rgba(255,255,255,0.88);
+      font-family: 'Inter', sans-serif;
+      font-size: 14.5px;
+      font-weight: 600;
+      padding: 15px 30px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+    .btn-glass:hover {
+      background: rgba(255,255,255,0.14);
+      border-color: rgba(255,255,255,0.28);
+      transform: translateY(-2px);
+    }
+
+    /* Floating stats (Liquid Glass cards) */
+    .hero-stats {
+      position: absolute;
+      right: 60px;
+      bottom: 100px;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      opacity: 0;
+      animation: slideLeft 0.85s 1.0s var(--ease) forwards;
+    }
+    @keyframes slideLeft {
+      from { opacity:0; transform:translateX(36px); }
+      to   { opacity:1; transform:translateX(0); }
+    }
+    .hstat {
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(28px) saturate(200%);
+      -webkit-backdrop-filter: blur(28px) saturate(200%);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 18px;
+      padding: 18px 26px;
+      min-width: 176px;
+      box-shadow:
+        0 8px 32px rgba(0,0,0,0.32),
+        inset 0 1px 0 rgba(255,255,255,0.14),
+        inset 0 -1px 0 rgba(0,0,0,0.12);
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .hstat::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.22), transparent);
+    }
+    .hstat:hover {
+      transform: translateX(-5px) translateY(-3px);
+      box-shadow: 0 14px 42px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.18);
+    }
+    .hstat-val {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 30px;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--yellow-light) 0%, var(--yellow) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 5px;
+    }
+    .hstat-lbl {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+    }
+
+    /* Scroll cue */
+    .scroll-cue {
+      position: absolute;
+      bottom: 28px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 7px;
+      opacity: 0;
+      animation: slideUp 0.8s 1.4s var(--ease) forwards;
+    }
+    .scroll-cue span {
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.32);
+    }
+    .scroll-mouse {
+      width: 22px; height: 34px;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      border-radius: 11px;
+      display: flex;
+      justify-content: center;
+      padding-top: 5px;
+    }
+    .scroll-wheel {
+      width: 3px; height: 7px;
+      background: rgba(255,255,255,0.45);
+      border-radius: 2px;
+      animation: wheelAnim 2.2s infinite;
+    }
+    @keyframes wheelAnim {
+      0%   { transform:translateY(0); opacity:1; }
+      100% { transform:translateY(9px); opacity:0; }
+    }
+
+    /* ============================================================
+       SECTION SHARED
+    ============================================================ */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 14px;
+    }
+    .section-label::before {
+      content: '';
+      width: 30px; height: 2px;
+      background: linear-gradient(90deg, var(--green), var(--yellow));
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 50px);
+      font-weight: 900;
+      color: var(--dark);
+      margin-bottom: 14px;
+    }
+    .section-desc {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.75;
+      max-width: 580px;
+    }
+
+    /* ============================================================
+       STATS SECTION (Dark)
+    ============================================================ */
+    .s-stats {
+      background: var(--dark);
+      padding: 90px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Background photo layer */
+    .s-stats-bg {
+      position: absolute; inset: 0;
+      background-image: url('images/interior2.jpg');
+      background-size: cover;
+      background-position: center 40%;
+      opacity: 0.18;
+      filter: grayscale(30%);
+    }
+    .s-stats::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 8% 50%, rgba(42,154,42,0.18) 0%, transparent 58%),
+        radial-gradient(ellipse at 92% 50%, rgba(245,224,0,0.08) 0%, transparent 55%),
+        linear-gradient(180deg, rgba(17,17,17,0.55) 0%, rgba(17,17,17,0.45) 50%, rgba(17,17,17,0.65) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+    .s-stats-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+    .s-stats-head {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+    .s-stats-head .section-label { color: var(--yellow-light); justify-content: center; }
+    .s-stats-head .section-label::before { display: none; }
+    .s-stats-head .section-title { color: #fff; }
+    .s-stats-head .section-desc { color: rgba(255,255,255,0.48); margin: 0 auto; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    /* Sub-section divider inside stats */
+    .stats-sub-title {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 52px 0 24px;
+    }
+    .stats-sub-title h3 {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.45);
+      white-space: nowrap;
+    }
+    .stats-sub-title::before,
+    .stats-sub-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* 3-col grid for exam/teacher rows */
+    .stats-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    /* Accent card variant (yellow top line) */
+    .stat-card.accent-yellow::after {
+      background: linear-gradient(90deg, var(--yellow), var(--yellow-light));
+    }
+    /* Accent card variant (green top line) */
+    .stat-card.accent-green::after {
+      background: linear-gradient(90deg, var(--green), var(--green-light));
+    }
+
+    /* Pill badge inside card */
+    .stat-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(245,224,0,0.12);
+      border: 1px solid rgba(245,224,0,0.22);
+      border-radius: 100px;
+      padding: 4px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--yellow-light);
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+    .stat-pill.green {
+      background: rgba(42,154,42,0.12);
+      border-color: rgba(42,154,42,0.22);
+      color: var(--green-light);
+    }
+
+    @media (max-width: 1100px) {
+      .stats-grid-3 { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .stats-grid-3 { grid-template-columns: 1fr; }
+      .stats-sub-title { margin: 36px 0 18px; }
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: var(--radius-lg);
+      padding: 36px 26px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s var(--ease), box-shadow 0.35s, border-color 0.35s, background 0.35s;
+    }
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--yellow));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s var(--ease);
+    }
+    .stat-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(42,154,42,0.25);
+      box-shadow: 0 22px 46px rgba(0,0,0,0.38);
+    }
+    .stat-card:hover::after { transform: scaleX(1); }
+    .stat-ico {
+      width: 50px; height: 50px;
+      border-radius: 14px;
+      background: rgba(42,154,42,0.12);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 18px;
+      font-size: 20px;
+    }
+    .stat-num {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 46px;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--yellow-light) 0%, var(--yellow) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+    .stat-sfx { font-size: 28px; }
+    .stat-name {
+      font-size: 12px;
+      font-weight: 800;
+      color: rgba(255,255,255,0.88);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-bottom: 5px;
+    }
+    .stat-note {
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.5;
+    }
+
+    /* ============================================================
+       ABOUT SECTION
+    ============================================================ */
+    .s-about { display: none; } /* removed section */
+    .s-about-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-visual { position: relative; }
+    .about-frame {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: var(--dark);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.22);
+    }
+    /* Interior photo placeholder / logo bg */
+    .about-frame-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(27,107,27,0.18) 0%, transparent 70%),
+        linear-gradient(135deg, #0C140C 0%, #182018 50%, #0E180E 100%);
+    }
+    .about-frame-logo {
+      position: relative; z-index: 1;
+      width: 65%;
+      opacity: 0.92;
+      filter: drop-shadow(0 0 40px rgba(42,154,42,0.25));
+    }
+    .about-cert {
+      position: absolute;
+      bottom: -22px; right: -22px;
+      background: linear-gradient(135deg, var(--green-light), var(--green-dark));
+      border-radius: 18px;
+      padding: 18px 22px;
+      box-shadow: 0 16px 42px rgba(42,154,42,0.42);
+      z-index: 2;
+      text-align: center;
+    }
+    .about-cert-val {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px; font-weight: 900;
+      color: #fff; line-height: 1;
+    }
+    .about-cert-txt {
+      font-size: 10px; font-weight: 700;
+      color: rgba(255,255,255,0.8);
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      margin-top: 4px;
+    }
+    .about-copy .section-title { margin-top: 6px; }
+    .about-text {
+      font-size: 15.5px;
+      color: var(--gray);
+      line-height: 1.82;
+      margin: 22px 0 34px;
+    }
+    .features { display: flex; flex-direction: column; gap: 14px; }
+    .feat {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 15px 16px;
+      border-radius: 12px;
+      background: var(--off-white);
+      transition: background 0.25s, transform 0.25s;
+    }
+    .feat:hover { background: #EBF5EB; transform: translateX(6px); }
+    .feat-ico {
+      width: 40px; height: 40px; flex-shrink: 0;
+      border-radius: 11px;
+      background: linear-gradient(135deg, var(--green), var(--green-dark));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px;
+    }
+    .feat-text h4 { font-size: 13.5px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+    .feat-text p  { font-size: 12.5px; color: var(--gray); }
+
+    /* ============================================================
+       PROGRAMS SECTION
+    ============================================================ */
+    /* ============================================================
+       TEACHERS SECTION
+    ============================================================ */
+    .s-teachers {
+      padding: 100px 48px;
+      background: var(--off-white);
+      position: relative;
+      overflow: hidden;
+    }
+    .s-teachers-inner { max-width: 1200px; margin: 0 auto; }
+
+    .teachers-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 52px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .teachers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+
+    .teacher-cert-card {
+      background: var(--white);
+      border: 1px solid var(--gray-light);
+      border-radius: var(--radius-lg);
+      padding: 36px 30px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.32s var(--ease), box-shadow 0.32s, border-color 0.32s;
+    }
+    .teacher-cert-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--green), var(--yellow));
+    }
+    .teacher-cert-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+      border-color: transparent;
+    }
+
+    .cert-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(42,154,42,0.08);
+      border: 1px solid rgba(42,154,42,0.18);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--green-dark);
+      letter-spacing: 0.3px;
+      margin-bottom: 22px;
+    }
+    .cert-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+    }
+
+    .cert-number {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 56px;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--yellow-light), var(--yellow));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+
+    .cert-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--dark);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+    .cert-desc {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* Featured teacher quote banner */
+    .teacher-banner {
+      background: linear-gradient(135deg, var(--dark) 0%, #1A2A1A 100%);
+      border-radius: var(--radius-lg);
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .teacher-banner-text h3 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .teacher-banner-text p {
+      font-size: 15px;
+      color: rgba(255,255,255,0.6);
+    }
+    .teacher-banner-text em {
+      color: var(--yellow-light);
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    @media (max-width: 1100px) {
+      .teachers-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .s-teachers { padding: 70px 20px; }
+      .teachers-grid { grid-template-columns: 1fr; }
+      .teachers-head { flex-direction: column; align-items: flex-start; }
+      .teacher-banner { padding: 28px 24px; flex-direction: column; text-align: center; }
+    }
+
+    /* ============================================================
+       FOUNDER SECTION
+    ============================================================ */
+    .s-founder {
+      padding: 110px 48px;
+      background: var(--white);
+      overflow: hidden;
+    }
+    .s-founder-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Quote block — full width cinematic */
+    .founder-quote-wrap {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      gap: 72px;
+      align-items: center;
+      margin-bottom: 80px;
+    }
+
+    /* Photo */
+    .founder-photo-col { position: relative; }
+    .founder-photo-frame {
+      border-radius: 28px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--off-white);
+      position: relative;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.14);
+    }
+    .founder-photo-frame img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    /* Fallback placeholder */
+    .founder-photo-placeholder {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(160deg, #f0f4f0 0%, #e0e8e0 100%);
+      font-size: 80px;
+    }
+    /* Decorative accent on photo */
+    .founder-photo-frame::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 50%;
+      background: linear-gradient(to top, rgba(27,107,27,0.18) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    /* Name badge */
+    .founder-name-badge {
+      position: absolute;
+      bottom: -18px; right: -18px;
+      background: var(--dark);
+      border: 2px solid rgba(42,154,42,0.3);
+      border-radius: 18px;
+      padding: 16px 22px;
+      z-index: 2;
+      box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+    }
+    .founder-name-badge strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 3px;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .founder-name-badge span {
+      font-size: 11px;
+      color: var(--green-light);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* Quote side */
+    .founder-quote-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .founder-quote-mark {
+      font-size: 96px;
+      line-height: 0.7;
+      font-family: Georgia, serif;
+      color: var(--green);
+      opacity: 0.25;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .founder-quote-text {
+      font-size: clamp(18px, 2.2vw, 26px);
+      font-weight: 500;
+      color: var(--dark);
+      line-height: 1.7;
+      font-style: italic;
+      position: relative;
+    }
+    .founder-quote-text em {
+      font-style: normal;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--green), var(--green-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .founder-quote-line {
+      width: 60px; height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--yellow));
+      border-radius: 3px;
+      margin: 28px 0 20px;
+    }
+    .founder-quote-author {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--dark);
+      letter-spacing: 0.3px;
+    }
+    .founder-quote-role {
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 3px;
+    }
+
+    /* History block */
+    .founder-history {
+      background: linear-gradient(135deg, #0C140C 0%, #141E14 60%, #0E180E 100%);
+      border-radius: 28px;
+      padding: 56px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .founder-history::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(42,154,42,0.14) 0%, transparent 70%);
+    }
+    .founder-history::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: -40px;
+      width: 250px; height: 250px;
+      background: radial-gradient(circle, rgba(245,224,0,0.07) 0%, transparent 70%);
+    }
+    .founder-history-inner {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .founder-history-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--green-light);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .founder-history-label::before {
+      content: '';
+      width: 24px; height: 2px;
+      background: linear-gradient(90deg, var(--green), var(--yellow));
+      border-radius: 2px;
+    }
+    .founder-history-title {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 28px;
+    }
+    .founder-history-text {
+      font-size: 15px;
+      color: rgba(255,255,255,0.62);
+      line-height: 1.85;
+    }
+    .founder-history-text p + p { margin-top: 16px; }
+
+    /* Timeline milestones */
+    .founder-milestones {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .milestone {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .milestone-year {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 13px;
+      color: var(--yellow);
+      min-width: 44px;
+      padding-top: 3px;
+      letter-spacing: 0.5px;
+    }
+    .milestone-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+      margin-top: 5px;
+      box-shadow: 0 0 10px rgba(42,154,42,0.5);
+      position: relative;
+    }
+    .milestone-dot::after {
+      content: '';
+      position: absolute;
+      top: 10px; left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 34px;
+      background: rgba(42,154,42,0.2);
+    }
+    .milestone:last-child .milestone-dot::after { display: none; }
+    .milestone-text h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 4px;
+    }
+    .milestone-text p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.48);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 1100px) {
+      .founder-quote-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .founder-photo-frame { aspect-ratio: 1/1; max-width: 380px; }
+      .founder-history-inner { grid-template-columns: 1fr; gap: 36px; }
+      .s-founder { padding: 80px 48px; }
+    }
+    @media (max-width: 768px) {
+      .s-founder { padding: 70px 20px; }
+      .founder-history { padding: 36px 28px; }
+      .founder-name-badge { bottom: -14px; right: -10px; padding: 12px 16px; }
+    }
+
+    /* ============================================================
+       MISSION / VISION / VALUES SECTION
+    ============================================================ */
+    .s-mvv {
+      background: var(--dark);
+      padding: 100px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .s-mvv::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 0% 50%, rgba(42,154,42,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 100% 50%, rgba(245,224,0,0.06) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .s-mvv-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .s-mvv-head {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .s-mvv-head .section-label { justify-content: center; color: var(--yellow-light); }
+    .s-mvv-head .section-label::before { display: none; }
+    .s-mvv-head .section-title { color: #fff; }
+
+    /* Three-column grid */
+    .mvv-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* ── All cards: identical base ── */
+    .mvv-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 22px;
+      padding: 36px 32px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.35s var(--ease), box-shadow 0.35s, border-color 0.35s;
+    }
+    .mvv-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(255,255,255,0.14);
+      box-shadow: 0 30px 60px rgba(0,0,0,0.45);
+    }
+
+    /* Top accent line — only colour differs */
+    .mvv-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 22px 22px 0 0;
+      transition: opacity 0.3s;
+    }
+    .mvv-vision::after  { background: linear-gradient(90deg, var(--green-dark), var(--green-light)); }
+    .mvv-mission::after { background: linear-gradient(90deg, var(--yellow-dark), var(--yellow-light)); }
+    .mvv-values::after  { background: linear-gradient(90deg, rgba(255,255,255,0.45), rgba(255,255,255,0.12)); }
+
+    /* Decorative bg letter — hidden */
+    .mvv-bg-letter { display: none; }
+
+    /* Icon — same size/shape, only stroke colour differs */
+    .mvv-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 22px;
+      position: relative; z-index: 1;
+    }
+
+    /* Label */
+    .mvv-label {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.38);
+      margin-bottom: 10px;
+      position: relative; z-index: 1;
+    }
+
+    /* Title */
+    .mvv-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 16px;
+      line-height: 1.18;
+      position: relative; z-index: 1;
+    }
+
+    /* Body text */
+    .mvv-text {
+      font-size: 14.5px;
+      color: rgba(255,255,255,0.58);
+      line-height: 1.78;
+      position: relative; z-index: 1;
+    }
+
+    /* Values list */
+    .mvv-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      position: relative; z-index: 1;
+    }
+    .mvv-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      font-size: 14.5px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.5;
+    }
+    .mvv-list li::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 7px;
+      background: var(--yellow);
+      box-shadow: 0 0 6px rgba(245,224,0,0.5);
+    }
+
+    @media (max-width: 1100px) {
+      .mvv-grid { grid-template-columns: 1fr; gap: 16px; }
+      .s-mvv { padding: 80px 20px; }
+    }
+    @media (max-width: 768px) {
+      .mvv-card { padding: 30px 24px; }
+      .mvv-title { font-size: 22px; }
+    }
+
+    /* ── VACANCIES ── */
+    .s-vacancies { padding: 100px 48px; background: var(--white); }
+    .s-vacancies-inner { max-width: 1200px; margin: 0 auto; }
+    .s-vac-head { margin-bottom: 52px; }
+    .vac-cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; margin-bottom: 48px; }
+    .vac-card {
+      background: var(--off-white); border: 1px solid var(--gray-light);
+      border-radius: var(--radius-lg); padding: 32px 28px;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s, border-color 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .vac-card::after {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--yellow));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.38s var(--ease);
+    }
+    .vac-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.09); border-color: transparent; }
+    .vac-card:hover::after { transform: scaleX(1); }
+    .vac-icon { font-size: 32px; margin-bottom: 16px; }
+    .vac-role { font-size: 17px; font-weight: 700; color: var(--dark); margin-bottom: 10px; }
+    .vac-req  { font-size: 14px; color: var(--gray); line-height: 1.65; margin-bottom: 18px; }
+    .vac-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* Featured vacancy — wide card */
+    .vac-featured {
+      grid-column: 1 / -1;
+      background: var(--white);
+      border: 2px solid rgba(42,154,42,0.2);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(42,154,42,0.08);
+    }
+    .vac-featured-header {
+      background: linear-gradient(135deg, var(--dark) 0%, #1A2A1A 100%);
+      padding: 28px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .vac-featured-title {
+      font-size: 22px;
+      font-weight: 900;
+      color: #fff;
+      font-family: 'Montserrat', sans-serif;
+    }
+    .vac-featured-subtitle {
+      font-size: 13px;
+      color: var(--green-light);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+    .vac-hot-badge {
+      background: linear-gradient(135deg, var(--yellow-light), var(--yellow));
+      color: var(--dark);
+      font-size: 11px;
+      font-weight: 800;
+      padding: 6px 16px;
+      border-radius: 100px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+    .vac-featured-body {
+      padding: 32px 36px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .vac-block h4 {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .vac-block h4::before {
+      content: '';
+      width: 20px; height: 2px;
+      background: linear-gradient(90deg, var(--green), var(--yellow));
+      border-radius: 2px;
+    }
+    .vac-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .vac-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+    .vac-list li::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+    .vac-list li strong { color: var(--dark); font-weight: 700; }
+    .vac-featured-footer {
+      padding: 20px 36px 28px;
+      border-top: 1px solid var(--gray-light);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      background: var(--off-white);
+    }
+    .vac-stat-row { display: flex; gap: 24px; flex-wrap: wrap; }
+    .vac-stat { text-align: center; }
+    .vac-stat strong { display: block; font-size: 22px; font-weight: 900; color: var(--green); font-family: 'Montserrat', sans-serif; }
+    .vac-stat span { font-size: 11px; color: var(--gray); font-weight: 600; }
+    @media (max-width: 768px) {
+      .vac-featured-body { grid-template-columns: 1fr; gap: 20px; }
+      .vac-featured-header, .vac-featured-body, .vac-featured-footer { padding: 20px; }
+    }
+    .vac-cta {
+      background: linear-gradient(135deg, var(--dark) 0%, #1A2A1A 100%);
+      border-radius: var(--radius-lg); padding: 36px 48px;
+      display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap;
+    }
+    .vac-cta p { font-size: 16px; color: rgba(255,255,255,0.65); flex: 1; }
+    @media (max-width: 1100px) { .vac-cards { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 768px) {
+      .s-vacancies { padding: 70px 20px; }
+      .vac-cards { grid-template-columns: 1fr; }
+      .vac-cta { padding: 28px 24px; flex-direction: column; }
+    }
+
+    .s-programs {
+      background: var(--off-white);
+      padding: 100px 48px;
+    }
+    .s-programs-inner { max-width: 1200px; margin: 0 auto; }
+    .progs-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 48px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .progs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+    /* Last row: if 3 items remain in a 4-col grid, center them */
+    .progs-grid .prog-card:nth-child(5),
+    .progs-grid .prog-card:nth-child(6),
+    .progs-grid .prog-card:nth-child(7) {
+      /* natural flow */
+    }
+    /* For 7 cards: row1=4, row2=3. Center row2 via padding trick */
+    @supports (grid-template-columns: subgrid) {
+      .progs-grid { justify-items: stretch; }
+    }
+    .prog-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      border: 1px solid var(--gray-light);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.32s var(--ease), box-shadow 0.32s, border-color 0.32s;
+      cursor: pointer;
+    }
+    .prog-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green), var(--yellow));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.38s var(--ease);
+    }
+    .prog-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 22px 50px rgba(0,0,0,0.1);
+      border-color: transparent;
+    }
+    .prog-card:hover::after { transform: scaleX(1); }
+    .prog-ico {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      margin-bottom: 18px;
+    }
+    .prog-title {
+      font-size: 17px; font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 9px;
+    }
+    .prog-desc {
+      font-size: 13.5px; color: var(--gray);
+      line-height: 1.62;
+      margin-bottom: 18px;
+    }
+    .prog-tag {
+      display: inline-block;
+      background: rgba(42,154,42,0.1);
+      color: var(--green-dark);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 4px 11px;
+      border-radius: 100px;
+      letter-spacing: 0.4px;
+    }
+
+    /* ============================================================
+       CTA SECTION
+    ============================================================ */
+    .s-cta {
+      background: var(--dark);
+      padding: 110px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .s-cta::before {
+      content: '';
+      position: absolute;
+      top: -40%; left: 50%; transform: translateX(-50%);
+      width: 900px; height: 900px;
+      background: radial-gradient(circle, rgba(42,154,42,0.12) 0%, transparent 68%);
+      pointer-events: none;
+    }
+    .s-cta::after {
+      content: '';
+      position: absolute;
+      bottom: -30%; right: -10%;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(245,224,0,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .s-cta-inner {
+      position: relative; z-index: 1;
+      max-width: 700px; margin: 0 auto;
+    }
+    .s-cta .section-label { justify-content: center; color: var(--yellow-light); }
+    .s-cta .section-label::before { display: none; }
+    .cta-title {
+      font-size: clamp(30px, 4vw, 52px);
+      font-weight: 900;
+      color: #fff;
+      margin-bottom: 18px;
+    }
+    .cta-desc {
+      font-size: 17px;
+      color: rgba(255,255,255,0.56);
+      line-height: 1.75;
+      margin-bottom: 42px;
+    }
+    .cta-btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-wa-lg {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      border: none;
+      border-radius: 12px;
+      padding: 16px 28px;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.28s;
+      box-shadow: 0 8px 28px rgba(37,211,102,0.3);
+    }
+    .btn-wa-lg:hover { transform: translateY(-2px); box-shadow: 0 14px 36px rgba(37,211,102,0.42); }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      background: #0D0D0D;
+      padding: 64px 48px 32px;
+      color: rgba(255,255,255,0.45);
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 56px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      margin-bottom: 28px;
+    }
+    .foot-brand-ges {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900; font-size: 22px; letter-spacing: 3px;
+      background: linear-gradient(135deg, #E8C84A, #C4A42B);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .foot-brand-sub {
+      display: block; font-size: 8px; letter-spacing: 2px;
+      color: rgba(255,255,255,0.28); text-transform: uppercase; margin-top: 3px;
+    }
+    .foot-desc {
+      font-size: 13px; line-height: 1.72; margin-top: 15px;
+      color: rgba(255,255,255,0.36);
+    }
+    .foot-socials {
+      display: flex; gap: 9px; margin-top: 22px;
+    }
+    .soc-btn {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.09);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.5);
+      transition: all 0.28s var(--ease);
+      flex-shrink: 0;
+    }
+    .soc-btn svg { width: 18px; height: 18px; fill: currentColor; }
+    .soc-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
+    .soc-btn.soc-ig:hover  { background:#E1306C; border-color:#E1306C; color:#fff; }
+    .soc-btn.soc-tt:hover  { background:#010101; border-color:#69C9D0; color:#fff; }
+    .soc-btn.soc-wa:hover  { background:#25D366; border-color:#25D366; color:#fff; }
+    .soc-btn.soc-tel:hover { background: rgba(42,154,42,0.3); border-color: var(--green); color: var(--green-light); }
+    .foot-col h5 {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 18px;
+    }
+    .foot-links { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+    .foot-links a {
+      font-size: 13.5px; color: rgba(255,255,255,0.38);
+      transition: color 0.22s;
+    }
+    .foot-links a:hover { color: var(--green-light); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px;
+    }
+
+    /* ============================================================
+       REVEAL ANIMATION
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(38px);
+      transition: opacity 0.72s var(--ease), transform 0.72s var(--ease);
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .rd1 { transition-delay: 0.1s; }
+    .rd2 { transition-delay: 0.2s; }
+    .rd3 { transition-delay: 0.3s; }
+    .rd4 { transition-delay: 0.4s; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1100px) {
+      .stats-grid    { grid-template-columns: repeat(2, 1fr); }
+      .progs-grid    { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid-3  { grid-template-columns: repeat(2, 1fr); }
+      .s-about-inner { grid-template-columns: 1fr; gap: 50px; }
+      .footer-top    { grid-template-columns: 1fr 1fr; gap: 36px; }
+      .hero-stats    { display: none; }
+    }
+    @media (max-width: 768px) {
+      .header { padding: 0 20px; height: 68px; }
+      .logo-img { height: 46px; }
+      .nav { display: none; }
+      .btn-phone span, .btn-wa span { display: none; }
+      .menu-toggle { display: flex; }
+      .mobile-nav { top: 68px; }
+      .s-stats, .s-about, .s-programs, .s-cta, .footer { padding-left: 20px; padding-right: 20px; }
+      .s-stats    { padding-top: 70px; padding-bottom: 70px; }
+      .s-about    { padding-top: 80px; padding-bottom: 80px; }
+      .s-programs { padding-top: 80px; padding-bottom: 80px; }
+      .s-cta      { padding-top: 80px; padding-bottom: 80px; }
+      .footer     { padding-top: 50px; padding-bottom: 24px; }
+      .hero-inner { padding: 68px 20px 0 20px; }
+      .hero-cta   { flex-direction: column; align-items: flex-start; }
+      .progs-grid { grid-template-columns: 1fr; }
+      .progs-head { flex-direction: column; align-items: flex-start; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; gap: 10px; text-align: center; }
+      .cta-btns   { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     HEADER
+============================================================ -->
+<header class="header" id="hdr">
+
+  <a href="#home" class="logo">
+    <img
+      src="images/ges-logo.png"
+      srcset="images/ges-logo.png 1x, images/ges-logo@2x.png 2x"
+      alt="GES — Global Education Sayram"
+      class="logo-img"
+      width="104" height="79"
+    >
+  </a>
+
+  <nav class="nav">
+    <a href="#about"    class="nav-link" data-i18n="n_about">О нас</a>
+    <a href="#stats"    class="nav-link" data-i18n="n_results">Результаты</a>
+    <a href="#programs" class="nav-link" data-i18n="n_programs">Программы</a>
+    <a href="#teachers" class="nav-link" data-i18n="n_teachers">Преподаватели</a>
+    <a href="#vacancies" class="nav-link" data-i18n="n_vacancies">Вакансии</a>
+    <a href="#contacts" class="nav-link" data-i18n="n_contacts">Контакты</a>
+  </nav>
+
+  <div class="header-right">
+    <div class="lang-sw">
+      <button class="lang-btn" data-lang="kz">KZ</button>
+      <button class="lang-btn active" data-lang="ru">RU</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+    <a href="tel:+77478160000" class="btn-phone">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.007 1.15 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+      </svg>
+      <span>8747 816-00-00</span>
+    </a>
+    <a href="https://wa.me/77773946924" target="_blank" class="btn-wa">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      <span>WhatsApp</span>
+    </a>
+    <button class="menu-toggle" id="mToggle" aria-label="Меню">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile Nav -->
+<nav class="mobile-nav" id="mobileNav">
+  <a href="#about"     class="nav-link" data-i18n="n_about">О нас</a>
+  <a href="#stats"     class="nav-link" data-i18n="n_results">Результаты</a>
+  <a href="#programs"  class="nav-link" data-i18n="n_programs">Программы</a>
+  <a href="#teachers"  class="nav-link" data-i18n="n_teachers">Преподаватели</a>
+  <a href="#vacancies" class="nav-link" data-i18n="n_vacancies">Вакансии</a>
+  <a href="#contacts"  class="nav-link" data-i18n="n_contacts">Контакты</a>
+  <div style="display:flex;gap:8px;margin-top:16px;padding-left:14px;">
+    <a href="tel:+77478160000" style="color:rgba(255,255,255,0.7);font-size:14px;">📞 8747 816-00-00</a>
+  </div>
+</nav>
+
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section class="hero" id="home">
+  <div class="hero-bg-fallback"></div>
+  <!--
+    ИНСТРУКЦИЯ: Сохраните фотографию интерьера GES как:
+    images/interior.jpg
+    в папку рядом с этим файлом index.html
+  -->
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-overlay-fade"></div>
+
+  <div class="hero-inner">
+    <div class="hero-badge">
+      <div class="badge-dot"></div>
+      <span data-i18n="h_badge">№1 — Образовательный центр Казахстана</span>
+    </div>
+
+    <h1 class="hero-title">
+      <span data-i18n="h_t1">Твой путь к</span> <span class="gold" data-i18n="h_t2">мировому образованию</span><br>
+      <span data-i18n="h_t3">начинается здесь</span>
+    </h1>
+
+    <p class="hero-sub" data-i18n="h_sub">
+      GES — это не просто курсы. Это экосистема для тех, кто стремится к большему: IELTS, SAT, TOEFL, языковые программы и сопровождение в лучшие университеты мира.
+    </p>
+
+    <div class="hero-cta">
+      <a href="#programs" class="btn-primary">
+        <span data-i18n="h_cta1">Записаться на консультацию и построить траекторию</span>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="https://www.youtube.com/watch?v=WTgfqXqGUjQ" target="_blank" rel="noopener" class="btn-glass">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+        <span data-i18n="h_cta2">Гимн GES</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Liquid Glass floating stats -->
+  <div class="hero-stats">
+    <div class="hstat">
+      <div class="hstat-val">12+</div>
+      <div class="hstat-lbl" data-i18n="hs_years">Лет работы</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val">5 000+</div>
+      <div class="hstat-lbl" data-i18n="hs_students">Выпускников</div>
+    </div>
+    <div class="hstat">
+      <div class="hstat-val">95%</div>
+      <div class="hstat-lbl" data-i18n="hs_rate">Успешность</div>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     STATS
+============================================================ -->
+<section class="s-founder" id="about">
+  <div class="s-founder-inner">
+
+    <!-- Quote + Photo -->
+    <div class="founder-quote-wrap">
+
+      <!-- Photo -->
+      <div class="founder-photo-col reveal">
+        <div class="founder-photo-frame">
+          <div class="founder-photo-placeholder">👤</div>
+          <!--
+            Сохраните фото основательницы как: images/founder.jpg
+          -->
+          <img src="images/founder.jpg" alt="Дилором Мирсалиева"
+            style="position:absolute;inset:0;"
+            onerror="this.style.display='none'">
+        </div>
+        <div class="founder-name-badge">
+          <strong data-i18n="founder_name">Дилором Мирсалиева</strong>
+          <span data-i18n="founder_role">Основатель УЦ GES</span>
+        </div>
+      </div>
+
+      <!-- Quote -->
+      <div class="founder-quote-col reveal rd2">
+        <span class="founder-quote-mark">"</span>
+        <p class="founder-quote-text" data-i18n="founder_quote">
+          Ты сияешь не тогда, когда копируешь других, а тогда, когда остаёшься собой — <em>уникальным, особенным и смелым.</em> И всегда помни: единственная сила, которая ведёт тебя к этому свету, единственный ключ, открывающий любые двери — это <em>образование.</em>
+        </p>
+        <div class="founder-quote-line"></div>
+        <div class="founder-quote-author" data-i18n="founder_name">Дилором Мирсалиева</div>
+        <div class="founder-quote-role" data-i18n="founder_role">Основатель УЦ GES</div>
+      </div>
+
+    </div>
+
+    <!-- History -->
+    <div class="founder-history reveal">
+      <div class="founder-history-inner">
+
+        <!-- Left: text -->
+        <div>
+          <div class="founder-history-label" data-i18n="history_label">История, которая вдохновляет</div>
+          <h2 class="founder-history-title" data-i18n="history_title">Мечта, которая изменила тысячи судеб</h2>
+          <div class="founder-history-text">
+            <p data-i18n="history_p1">Двадцать лет назад Дилором Мирсалиева жила одной простой, но глубокой мечтой — дать каждому ребёнку из самой обычной школы шанс увидеть мир. Не деньги, не связи — только знания, труд и вера в себя.</p>
+            <p data-i18n="history_p2">9 сентября 2013 года эта мечта обрела форму. Два маленьких кабинета. Два преподавателя. 130 детей с горящими глазами. Никто не знал, что это — только начало.</p>
+            <p data-i18n="history_p3">Сегодня GES — это 4 филиала в Шымкенте и Туркестанской области, более 5 000 выпускников в университетах по всему миру, тысячи изменённых судеб. Но в сердце каждого урока по-прежнему живёт та же мечта — помочь каждому найти свой путь к свету.</p>
+          </div>
+        </div>
+
+        <!-- Right: milestones -->
+        <div class="founder-milestones">
+          <div class="milestone">
+            <div class="milestone-year">2013</div>
+            <div class="milestone-dot"></div>
+            <div class="milestone-text">
+              <h4 data-i18n="ms1_title">Открытие GES</h4>
+              <p data-i18n="ms1_desc">2 кабинета, 2 преподавателя, 130 учеников — и одна большая мечта</p>
+            </div>
+          </div>
+          <div class="milestone">
+            <div class="milestone-year">2016</div>
+            <div class="milestone-dot"></div>
+            <div class="milestone-text">
+              <h4 data-i18n="ms2_title">Первые международные результаты</h4>
+              <p data-i18n="ms2_desc">Выпускники GES начали поступать в зарубежные университеты</p>
+            </div>
+          </div>
+          <div class="milestone">
+            <div class="milestone-year">2019</div>
+            <div class="milestone-dot"></div>
+            <div class="milestone-text">
+              <h4 data-i18n="ms3_title">Расширение сети</h4>
+              <p data-i18n="ms3_desc">Открытие новых филиалов в Шымкенте и Туркестанской области</p>
+            </div>
+          </div>
+          <div class="milestone">
+            <div class="milestone-year" style="visibility:hidden">—</div>
+            <div class="milestone-dot"></div>
+            <div class="milestone-text">
+              <h4 data-i18n="ms4_title">GES сегодня</h4>
+              <p data-i18n="ms4_desc">4 филиала, 5 000+ выпускников, 100+ студентов учатся за рубежом</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     MISSION / VISION / VALUES
+============================================================ -->
+<div class="s-mvv">
+  <div class="s-mvv-inner">
+
+    <div class="s-mvv-head reveal">
+      <div class="section-label" data-i18n="sl_mvv">ДНК компании</div>
+      <h2 class="section-title" data-i18n="mvv_title">Кто мы и зачем мы здесь</h2>
+    </div>
+
+    <div class="mvv-grid">
+
+      <!-- ВИДЕНИЕ -->
+      <div class="mvv-card mvv-vision reveal">
+        <div class="mvv-bg-letter">V</div>
+        <div class="mvv-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#4EC44E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+          </svg>
+        </div>
+        <div class="mvv-label" data-i18n="mvv_v_label">Видение</div>
+        <h3 class="mvv-title" data-i18n="mvv_v_title">Ведущий образовательный центр Казахстана</h3>
+        <p class="mvv-text" data-i18n="mvv_v_text">Стать ведущим образовательным центром Казахстана, известным успехами студентов и своим образцовым сервисом.</p>
+      </div>
+
+      <!-- МИССИЯ -->
+      <div class="mvv-card mvv-mission reveal rd1">
+        <div class="mvv-bg-letter">M</div>
+        <div class="mvv-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#D4B800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+          </svg>
+        </div>
+        <div class="mvv-label" data-i18n="mvv_m_label">Миссия</div>
+        <h3 class="mvv-title" data-i18n="mvv_m_title">Лидеры общества XXI века</h3>
+        <p class="mvv-text" data-i18n="mvv_m_text">Мотивировать и подготовить наших студентов стать лидерами общества, формируя навыки XXI века, способствующие их академическому, духовному, социальному и эмоциональному развитию.</p>
+      </div>
+
+      <!-- ЦЕННОСТИ -->
+      <div class="mvv-card mvv-values reveal rd2">
+        <div class="mvv-bg-letter">Ц</div>
+        <div class="mvv-icon">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+          </svg>
+        </div>
+        <div class="mvv-label" data-i18n="mvv_c_label">Ценности</div>
+        <h3 class="mvv-title" data-i18n="mvv_c_title">Наши принципы</h3>
+        <ul class="mvv-list">
+          <li data-i18n="mvv_c1">Непрерывное обучение</li>
+          <li data-i18n="mvv_c2">Честность и ответственность за свои поступки</li>
+          <li data-i18n="mvv_c3">Создание доверительной среды</li>
+          <li data-i18n="mvv_c4">Преданность своему делу</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     PROGRAMS
+============================================================ -->
+<div class="s-stats" id="stats">
+  <!-- Background interior photo — save as images/interior2.jpg -->
+  <div class="s-stats-bg"></div>
+  <div class="s-stats-inner">
+    <div class="s-stats-head reveal">
+      <div class="section-label" data-i18n="sl_achieve">Наши достижения</div>
+      <h2 class="section-title" data-i18n="st_title">GES в цифрах</h2>
+      <p class="section-desc" data-i18n="st_desc">Каждая цифра — это реальная история успеха наших студентов и результат ежедневного труда команды.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card reveal">
+        <div class="stat-ico">🎓</div>
+        <div class="stat-num"><span class="cnt" data-to="5000">0</span><span class="stat-sfx">+</span></div>
+        <div class="stat-name" data-i18n="s1n">Выпускников</div>
+        <div class="stat-note" data-i18n="s1d">студентов завершили наши программы</div>
+      </div>
+      <div class="stat-card reveal rd1">
+        <div class="stat-ico">🌍</div>
+        <div class="stat-num"><span class="cnt" data-to="30">0</span><span class="stat-sfx">+</span></div>
+        <div class="stat-name" data-i18n="s2n">Стран</div>
+        <div class="stat-note" data-i18n="s2d">куда поступили выпускники</div>
+      </div>
+      <div class="stat-card reveal rd2">
+        <div class="stat-ico">📈</div>
+        <div class="stat-num"><span class="cnt" data-to="95">0</span><span class="stat-sfx">%</span></div>
+        <div class="stat-name" data-i18n="s3n">Успешность</div>
+        <div class="stat-note" data-i18n="s3d">достигли целевого балла</div>
+      </div>
+      <div class="stat-card reveal rd3">
+        <div class="stat-ico">⭐</div>
+        <div class="stat-num"><span class="cnt" data-to="12">0</span><span class="stat-sfx">+</span></div>
+        <div class="stat-name" data-i18n="s4n">Лет опыта</div>
+        <div class="stat-note" data-i18n="s4d">в международном образовании</div>
+      </div>
+    </div>
+
+    <!-- ── EXAM RESULTS ── -->
+    <div class="stats-sub-title reveal">
+      <h3 data-i18n="ssl_exams">🎯 Результаты экзаменов</h3>
+    </div>
+    <div class="stats-grid-3">
+
+      <!-- IELTS -->
+      <div class="stat-card accent-yellow reveal">
+        <div class="stat-pill">IELTS</div>
+        <div class="stat-num" style="font-size:38px;">
+          <span class="cnt" data-to="500">0</span><span class="stat-sfx">+</span>
+        </div>
+        <div class="stat-name" data-i18n="se_ielts_name">Студентов сдали IELTS</div>
+        <div class="stat-note" data-i18n="se_ielts_note">Средний балл наших студентов</div>
+        <div style="margin-top:14px;display:flex;align-items:baseline;gap:4px;">
+          <span style="font-size:28px;font-weight:900;font-family:'Montserrat',sans-serif;color:var(--yellow-light);">6.5</span>
+          <span style="font-size:12px;color:rgba(255,255,255,0.45);font-weight:600;" data-i18n="se_avg">средний балл</span>
+        </div>
+      </div>
+
+      <!-- SAT -->
+      <div class="stat-card accent-yellow reveal rd1">
+        <div class="stat-pill">SAT</div>
+        <div class="stat-num" style="font-size:38px;">
+          <span class="cnt" data-to="50">0</span><span class="stat-sfx">+</span>
+        </div>
+        <div class="stat-name" data-i18n="se_sat_name">Студентов сдали SAT</div>
+        <div class="stat-note" data-i18n="se_sat_note">Готовим к поступлению в топ-вузы</div>
+        <div style="margin-top:14px;display:flex;align-items:baseline;gap:4px;">
+          <span style="font-size:28px;font-weight:900;font-family:'Montserrat',sans-serif;color:var(--yellow-light);">1400+</span>
+          <span style="font-size:12px;color:rgba(255,255,255,0.45);font-weight:600;" data-i18n="se_avg">средний балл</span>
+        </div>
+      </div>
+
+      <!-- Nazarbayev University -->
+      <div class="stat-card accent-green reveal rd2">
+        <div class="stat-pill green">Nazarbayev University</div>
+        <div class="stat-num" style="font-size:38px;">
+          <span class="cnt" data-to="75">0</span><span class="stat-sfx">+</span>
+        </div>
+        <div class="stat-name" data-i18n="se_nu_name">Поступили в НУ</div>
+        <div class="stat-note" data-i18n="se_nu_note">Наши студенты — в числе лучших абитуриентов страны</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<!-- ============================================================
+     TEACHERS SECTION
+============================================================ -->
+<div class="s-programs" id="programs">
+  <div class="s-programs-inner">
+    <div class="progs-head">
+      <div>
+        <div class="section-label" data-i18n="sl_services">Наши услуги</div>
+        <h2 class="section-title" data-i18n="sv_title">Выберите свою программу</h2>
+      </div>
+      <a href="https://wa.me/77773946924" target="_blank" rel="noopener" class="btn-primary" style="white-space:nowrap;color:var(--dark);" data-i18n="sv_enroll">Записаться на бесплатный пробный урок</a>
+    </div>
+
+    <div class="progs-grid">
+
+      <!-- 1. Школьные предметы / ЕНТ -->
+      <div class="prog-card reveal">
+        <div class="prog-ico" style="background:rgba(42,154,42,0.1)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2A9A2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+        </div>
+        <div class="prog-title" data-i18n="sv1_title">Школьные предметы / ЕНТ</div>
+        <p class="prog-desc" data-i18n="sv1_desc">Индивидуальные и групповые занятия по всем школьным дисциплинам. Интенсивная подготовка к ЕНТ с проверенной методикой и авторскими материалами — повышаем балл гарантированно.</p>
+        <span class="prog-tag" data-i18n="sv1_tag">ЕНТ / Школа</span>
+      </div>
+
+      <!-- 2. Языки -->
+      <div class="prog-card reveal rd1">
+        <div class="prog-ico" style="background:rgba(245,224,0,0.12)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C4A800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+        </div>
+        <div class="prog-title" data-i18n="sv2_title">Английский · Русский · Турецкий · Корейский</div>
+        <p class="prog-desc" data-i18n="sv2_desc">Изучение четырёх языков с нуля до продвинутого уровня. Коммуникативный метод, нативные носители, живая практика с первого урока. Группы по возрасту и уровню.</p>
+        <span class="prog-tag" data-i18n="sv2_tag">4 языка</span>
+      </div>
+
+      <!-- 3. SAT / IELTS -->
+      <div class="prog-card reveal rd2">
+        <div class="prog-ico" style="background:rgba(42,154,42,0.1)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2A9A2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="prog-title" data-i18n="sv3_title">Подготовка к SAT / IELTS</div>
+        <p class="prog-desc" data-i18n="sv3_desc">Стратегический подход к международным экзаменам. Авторские материалы, пробные тесты в реальных условиях, разбор ошибок. Средний балл IELTS — 6.5, SAT — 1400+.</p>
+        <span class="prog-tag" style="background:rgba(245,224,0,0.15);color:#8B7200;" data-i18n="sv3_tag">Популярное</span>
+      </div>
+
+      <!-- 4. IT / Робототехника -->
+      <div class="prog-card reveal rd3">
+        <div class="prog-ico" style="background:rgba(245,224,0,0.12)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C4A800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/><polyline points="9 11 12 14 15 11"/><line x1="12" y1="8" x2="12" y2="14"/></svg>
+        </div>
+        <div class="prog-title" data-i18n="sv4_title">IT / Робототехника</div>
+        <p class="prog-desc" data-i18n="sv4_desc">Программирование, веб-разработка и робототехника для детей и взрослых. Реальные проекты с первых занятий, современные языки: Python, Scratch, JavaScript. Старт в digital-профессии.</p>
+        <span class="prog-tag">Tech</span>
+      </div>
+
+      <!-- 5. Сингапурская математика -->
+      <div class="prog-card reveal">
+        <div class="prog-ico" style="background:rgba(42,154,42,0.1)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2A9A2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="prog-title" data-i18n="sv5_title">Сингапурская математика</div>
+        <p class="prog-desc" data-i18n="sv5_desc">Методика №1 в мире по рейтингу PISA. Развивает логическое мышление и нестандартный подход к задачам. Подходит с 1 класса — дети понимают математику, а не зубрят правила.</p>
+        <span class="prog-tag" data-i18n="sv5_tag">Математика</span>
+      </div>
+
+      <!-- 6. Монтессори -->
+      <div class="prog-card reveal rd1">
+        <div class="prog-ico" style="background:rgba(245,224,0,0.12)">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#C4A800" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="prog-title" data-i18n="sv6_title">Монтессори для детей</div>
+        <p class="prog-desc" data-i18n="sv6_desc">Развивающая среда для детей от 2 лет по международной методике Монтессори. Самостоятельность, творческое мышление и любовь к познанию — через игру, исследование и свободный выбор.</p>
+        <span class="prog-tag" data-i18n="sv6_tag">Дети 2–6 лет</span>
+      </div>
+
+      <!-- 7. Профориентация / Study Abroad -->
+      <div class="prog-card reveal rd2" style="grid-column: span 2;">
+        <div style="display:flex;align-items:flex-start;gap:20px;">
+          <div class="prog-ico" style="background:rgba(42,154,42,0.1);flex-shrink:0;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2A9A2A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.007 1.15 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6z"/><path d="M15 2s2.7 2.7 3 6M19.1 5.9C20.6 7.4 21 10 21 10"/></svg>
+          </div>
+          <div>
+            <div class="prog-title" data-i18n="sv7_title">Профориентация / Study Abroad</div>
+            <p class="prog-desc" data-i18n="sv7_desc">Помогаем выбрать профессию, университет и страну. Полное сопровождение при поступлении в вузы США, Великобритании, Европы и Азии — от выбора специальности до подачи документов. Более 100 студентов уже успешно учатся за рубежом.</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;">
+              <span class="prog-tag">Study Abroad</span>
+              <span class="prog-tag" data-i18n="sv7_tag2">Профориентация</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     CTA
+============================================================ -->
+<section class="s-teachers" id="teachers">
+  <div class="s-teachers-inner">
+
+    <div class="teachers-head">
+      <div>
+        <div class="section-label" data-i18n="sl_teachers">Наши преподаватели</div>
+        <h2 class="section-title" data-i18n="teachers_title">Команда мирового уровня</h2>
+      </div>
+      <a href="https://wa.me/77773946924" target="_blank" rel="noopener" class="btn-primary" style="color:var(--dark);white-space:nowrap;" data-i18n="teachers_cta">Записаться на урок</a>
+    </div>
+
+    <div class="teachers-grid">
+
+      <!-- DELTA -->
+      <div class="teacher-cert-card reveal">
+        <div class="cert-badge">DELTA Certificate</div>
+        <div class="cert-number">3</div>
+        <div class="cert-title" data-i18n="st_delta_name">Преподавателя с DELTA</div>
+        <p class="cert-desc" data-i18n="st_delta_note">Высший международный сертификат преподавания английского языка</p>
+      </div>
+
+      <!-- CELTA -->
+      <div class="teacher-cert-card reveal rd1">
+        <div class="cert-badge">CELTA Certificate</div>
+        <div class="cert-number"><span class="cnt" data-to="15">0</span>+</div>
+        <div class="cert-title" data-i18n="st_celta_name">Преподавателей с CELTA</div>
+        <p class="cert-desc" data-i18n="st_celta_note">Сертифицированные специалисты Cambridge Assessment English</p>
+      </div>
+
+      <!-- Высшая категория -->
+      <div class="teacher-cert-card reveal rd2">
+        <div class="cert-badge" data-i18n="st_top_pill">Высшая категория</div>
+        <div class="cert-number"><span class="cnt" data-to="20">0</span>+</div>
+        <div class="cert-title" data-i18n="st_top_name">Преподавателей</div>
+        <p class="cert-desc" data-i18n="st_top_note">Педагоги высшей квалификационной категории</p>
+      </div>
+
+    </div>
+
+    <!-- Banner -->
+    <div class="teacher-banner reveal">
+      <div class="teacher-banner-text">
+        <h3 data-i18n="teachers_banner_title">Наши преподаватели — ваш главный ресурс</h3>
+        <p data-i18n="teachers_banner_desc">Каждый педагог GES прошёл строгий отбор. <em>DELTA, CELTA, высшая категория</em> — это не просто сертификаты, это гарантия качества каждого урока.</p>
+      </div>
+      <a href="https://wa.me/77773946924" target="_blank" rel="noopener" class="btn-wa-lg" style="flex-shrink:0;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span data-i18n="teachers_cta">Записаться на урок</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOUNDER / ABOUT SECTION  (id="about" — nav link target)
+============================================================ -->
+
+<!-- ============================================================
+     VACANCIES SECTION
+============================================================ -->
+<section class="s-vacancies" id="vacancies">
+  <div class="s-vacancies-inner">
+    <div class="s-vac-head reveal">
+      <div>
+        <div class="section-label" data-i18n="sl_vac">Вакансии</div>
+        <h2 class="section-title" data-i18n="vac_title">Присоединяйтесь к команде GES</h2>
+        <p class="section-desc" data-i18n="vac_desc">Мы всегда в поиске талантливых педагогов и специалистов, которые разделяют наши ценности и готовы вдохновлять студентов каждый день.</p>
+      </div>
+    </div>
+    <div class="vac-cards reveal">
+
+      <!-- ── FEATURED: Стажёр-ассистент ── -->
+      <div class="vac-featured">
+        <div class="vac-featured-header">
+          <div>
+            <div class="vac-featured-title">Стажёр-ассистент преподавателя английского языка</div>
+            <div class="vac-featured-subtitle">Upper-Intermediate+ · Начало карьеры в образовании</div>
+          </div>
+          <div class="vac-hot-badge">🔥 Горячая вакансия</div>
+        </div>
+
+        <div class="vac-featured-body">
+          <!-- Left column -->
+          <div>
+            <div class="vac-block">
+              <h4>Кого мы ищем</h4>
+              <ul class="vac-list">
+                <li>Студентов 4 курса или выпускников вузов</li>
+                <li>Специальность не имеет значения</li>
+                <li>Уровень английского — <strong>не ниже Intermediate</strong></li>
+                <li><strong>Желание преподавать</strong> и готовность учиться</li>
+                <li>Интерес к работе с детьми и подростками, ответственность</li>
+              </ul>
+            </div>
+            <div class="vac-block" style="margin-top:22px;">
+              <h4>Что вы будете делать</h4>
+              <ul class="vac-list">
+                <li>Помогать преподавателю на занятиях</li>
+                <li>Поддерживать дисциплину и рабочую атмосферу</li>
+                <li>Помогать ученикам во время урока</li>
+                <li>Проходить внутреннее обучение по основам преподавания</li>
+                <li>Постепенно брать больше задач и расти до самостоятельного преподавателя</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Right column -->
+          <div>
+            <div class="vac-block">
+              <h4>О программе стажировки</h4>
+              <ul class="vac-list">
+                <li>Продолжительность: <strong>2–6 месяцев</strong> (в зависимости от прогресса)</li>
+                <li>Наставничество опытных педагогов с <strong>CELTA, DELTA и TESOL</strong></li>
+                <li>Возможность подрабатывать на заменах <strong>ещё до официального трудоустройства</strong></li>
+                <li><strong>100% сотрудников</strong> были приняты на работу через эту программу</li>
+              </ul>
+            </div>
+            <div class="vac-block" style="margin-top:22px;">
+              <h4>Что вы получите</h4>
+              <ul class="vac-list">
+                <li>Сильную академическую среду и поддержку команды</li>
+                <li>Обучение во время стажировки (теория + практика)</li>
+                <li>Понятную систему роста и развития</li>
+                <li><strong>Трудоустройство в GES</strong></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="vac-featured-footer">
+          <div class="vac-stat-row">
+            <div class="vac-stat"><strong>100%</strong><span>трудоустройство</span></div>
+            <div class="vac-stat"><strong>2–6</strong><span>месяцев стажировки</span></div>
+            <div class="vac-stat"><strong>CELTA/DELTA</strong><span>наставники</span></div>
+          </div>
+          <a href="https://wa.me/87064083269" target="_blank" rel="noopener" class="btn-primary" style="color:var(--dark);white-space:nowrap;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            📩 Откликнуться в WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Other vacancies -->
+      <div class="vac-card">
+        <div class="vac-icon">📚</div>
+        <h3 class="vac-role" data-i18n="vac_r1">Преподаватель английского языка</h3>
+        <p class="vac-req" data-i18n="vac_d1">Опыт от 1 года, знание английского C1+, желательно CELTA/DELTA. Полная или частичная занятость.</p>
+        <div class="vac-tags"><span class="prog-tag" data-i18n="vac_ft">Полная занятость</span><span class="prog-tag" data-i18n="vac_pt">Частичная</span></div>
+      </div>
+      <div class="vac-card">
+        <div class="vac-icon">🧒</div>
+        <h3 class="vac-role" data-i18n="vac_r2">Педагог Монтессори / детских программ</h3>
+        <p class="vac-req" data-i18n="vac_d2">Опыт работы с детьми, педагогическое образование, любовь к детям и творческий подход.</p>
+        <div class="vac-tags"><span class="prog-tag">Montessori</span></div>
+      </div>
+      <div class="vac-card">
+        <div class="vac-icon">💻</div>
+        <h3 class="vac-role" data-i18n="vac_r3">Преподаватель IT / Робототехники</h3>
+        <p class="vac-req" data-i18n="vac_d3">Знание Python, Scratch, опыт преподавания или работы в IT. Современный подход к обучению.</p>
+        <div class="vac-tags"><span class="prog-tag">IT</span><span class="prog-tag">Tech</span></div>
+      </div>
+
+    </div>
+
+    <div class="vac-cta reveal">
+      <p data-i18n="vac_cta_text">Не нашли подходящую вакансию? Отправьте резюме — мы рассмотрим вашу кандидатуру.</p>
+      <a href="https://wa.me/87064083269" target="_blank" rel="noopener" class="btn-primary" style="color:var(--dark);" data-i18n="vac_cta_btn">Отправить резюме в WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<div class="s-cta" id="contacts">
+  <div class="s-cta-inner reveal">
+    <div class="section-label" data-i18n="sl_cta">Начать сейчас</div>
+    <h2 class="cta-title" data-i18n="ct_title">Готов к первому шагу?</h2>
+    <p class="cta-desc" data-i18n="ct_desc">Запишись на бесплатный пробный урок и узнай, какая программа подходит именно тебе. Ответим в течение 15 минут.</p>
+    <div class="cta-btns">
+      <a href="https://wa.me/77773946924" target="_blank" rel="noopener" class="btn-wa-lg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        <span data-i18n="ct_wa">Написать в WhatsApp</span>
+      </a>
+      <a href="tel:+77478160000" class="btn-glass" style="color:rgba(255,255,255,0.88)">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.007 1.15 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        <span data-i18n="ct_call">Позвонить нам</span>
+      </a>
+    </div>
+
+    <!-- Social links in contacts section -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:14px;margin-top:36px;">
+      <span style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.35);font-weight:600;" data-i18n="ct_follow">Мы в соцсетях</span>
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/ges.english.school/?hl=ru" target="_blank" rel="noopener"
+         style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:10px 18px;color:rgba(255,255,255,0.8);font-size:13px;font-weight:600;text-decoration:none;transition:all 0.25s;"
+         onmouseover="this.style.background='linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)';this.style.borderColor='transparent';this.style.color='#fff';"
+         onmouseout="this.style.background='rgba(255,255,255,0.07)';this.style.borderColor='rgba(255,255,255,0.12)';this.style.color='rgba(255,255,255,0.8)';">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        @ges.english.school
+      </a>
+      <!-- TikTok -->
+      <a href="https://www.tiktok.com/@ges.english.school" target="_blank" rel="noopener"
+         style="display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:10px 18px;color:rgba(255,255,255,0.8);font-size:13px;font-weight:600;text-decoration:none;transition:all 0.25s;"
+         onmouseover="this.style.background='#010101';this.style.borderColor='#69C9D0';this.style.color='#fff';"
+         onmouseout="this.style.background='rgba(255,255,255,0.07)';this.style.borderColor='rgba(255,255,255,0.12)';this.style.color='rgba(255,255,255,0.8)';">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
+        @ges.english.school
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div>
+          <img
+            src="images/ges-logo.png"
+            srcset="images/ges-logo.png 1x, images/ges-logo@2x.png 2x"
+            alt="GES — Global Education Sayram"
+            style="height:64px;width:auto;object-fit:contain;filter:brightness(1.08) drop-shadow(0 2px 12px rgba(0,0,0,0.6));"
+            width="84" height="64"
+          >
+        </div>
+        <p class="foot-desc" data-i18n="fd_desc">Образовательный центр нового поколения. Твой старт к международной карьере и лучшим университетам мира.</p>
+        <div class="foot-socials">
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/ges.english.school/?hl=ru" target="_blank" rel="noopener" class="soc-btn soc-ig" title="Instagram">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <!-- TikTok -->
+          <a href="https://www.tiktok.com/@ges.english.school" target="_blank" rel="noopener" class="soc-btn soc-tt" title="TikTok">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
+          </a>
+          <!-- WhatsApp -->
+          <a href="https://wa.me/77773946924" target="_blank" rel="noopener" class="soc-btn soc-wa" title="WhatsApp">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+          <!-- Phone -->
+          <a href="tel:+77478160000" class="soc-btn soc-tel" title="Телефон">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="fc_nav">Навигация</h5>
+        <ul class="foot-links">
+          <li><a href="#about"    data-i18n="n_about">О нас</a></li>
+          <li><a href="#stats"    data-i18n="n_results">Результаты</a></li>
+          <li><a href="#programs" data-i18n="n_programs">Программы</a></li>
+          <li><a href="#teachers" data-i18n="n_teachers">Преподаватели</a></li>
+          <li><a href="#vacancies" data-i18n="n_vacancies">Вакансии</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="fc_progs">Услуги</h5>
+        <ul class="foot-links">
+          <li><a href="#programs" data-i18n="sv1_title">Школьные предметы / ЕНТ</a></li>
+          <li><a href="#programs" data-i18n="sv2_title">Английский · Русский · Турецкий · Корейский</a></li>
+          <li><a href="#programs" data-i18n="sv3_title">Подготовка к SAT / IELTS</a></li>
+          <li><a href="#programs" data-i18n="sv4_title">IT / Робототехника</a></li>
+          <li><a href="#programs" data-i18n="sv5_title">Сингапурская математика</a></li>
+          <li><a href="#programs" data-i18n="sv6_title">Монтессори для детей</a></li>
+          <li><a href="#programs" data-i18n="sv7_title">Профориентация / Study Abroad</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="fc_cont">Контакты</h5>
+        <ul class="foot-links">
+          <li><a href="tel:+77478160000">📞 8747 816-00-00</a></li>
+          <li><a href="https://wa.me/77773946924" target="_blank">💬 8777 394-69-24</a></li>
+          <li><a href="https://www.instagram.com/ges.english.school/?hl=ru" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            @ges.english.school
+          </a></li>
+          <li><a href="https://www.tiktok.com/@ges.english.school" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.75a4.85 4.85 0 01-1.01-.06z"/></svg>
+            @ges.english.school
+          </a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 GES — Global Education Sayram. <span data-i18n="fr_rights">Все права защищены.</span></span>
+      <span data-i18n="fr_slogan">Образование без границ 🌍</span>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+/* ── TRANSLATIONS ── */
+const T = {
+  ru: {
+    logo_sub:'Global Education Sayram',
+    n_about:'О нас', n_results:'Результаты', n_programs:'Программы',
+    n_teachers:'Преподаватели', n_vacancies:'Вакансии', n_contacts:'Контакты',
+    h_badge:'№1 — Образовательный центр Казахстана',
+    h_t1:'Твой путь к', h_t2:'мировому образованию', h_t3:'начинается здесь',
+    h_sub:'GES — это не просто курсы. Это экосистема для тех, кто стремится к большему: IELTS, SAT, TOEFL, языковые программы и сопровождение в лучшие университеты мира.',
+    h_cta1:'Записаться на консультацию и построить траекторию', h_cta2:'Гимн GES',
+    hs_years:'Лет работы', hs_students:'Выпускников', hs_rate:'Успешность',
+    sl_achieve:'Наши достижения', st_title:'GES в цифрах',
+    st_desc:'Каждая цифра — реальная история успеха наших студентов.',
+    s1n:'Выпускников', s1d:'студентов завершили наши программы',
+    s2n:'Стран',       s2d:'куда поступили выпускники',
+    s3n:'Успешность',  s3d:'достигли целевого балла',
+    s4n:'Лет опыта',   s4d:'успешной работы в международном образовании',
+    sl_about:'О нас', ab_title:'Global Education Sayram — больше, чем школа',
+    ab_text:'GES создан с одной миссией — дать каждому студенту доступ к образованию мирового уровня. Сертифицированные преподаватели, авторские методики и проверенные программы помогают тысячам учеников достигать целей: от IELTS до поступления в университеты Европы, США и Азии.',
+    ac_cert:'Сертификат',
+    f1h:'Сертифицированные программы', f1p:'Официально аккредитованные курсы международного уровня',
+    f2h:'Опытные преподаватели',       f2p:'Нативные спикеры и сертифицированные педагоги',
+    f3h:'Персональный трекинг',        f3p:'Индивидуальный прогресс и обратная связь',
+    sl_progs:'Программы', pr_title:'Выберите свой путь', pr_all:'Все программы →',
+    p1d:'Комплексная подготовка к международным экзаменам. Гарантированный результат от 6.5 баллов.',
+    p1t:'Популярное',
+    p2d:'Стратегии и практика для высоких баллов при поступлении в американские вузы.',
+    p2t:'Университет',
+    p3h:'Разговорный английский', p3d:'Живые диалоги и ситуационная практика с носителями языка.',
+    p4h:'Детские курсы',          p4d:'Игровое обучение для детей от 5 лет через творчество.',
+    p5h:'Корпоративный English',  p5d:'Деловой английский для компаний. Гибкий формат и скидки.',
+    p6h:'Поступление за рубеж',   p6d:'Полное сопровождение в вузы США, Великобритании, Европы, Азии.',
+    sl_cta:'Начать сейчас', ct_title:'Готов к первому шагу?',
+    ct_desc:'Запишись на бесплатный пробный урок. Ответим в течение 15 минут.',
+    ct_wa:'Написать в WhatsApp', ct_call:'Позвонить нам', ct_follow:'Мы в соцсетях',
+    fd_desc:'Образовательный центр нового поколения.',
+    fc_nav:'Навигация', fc_progs:'Услуги', fc_cont:'Контакты',
+    fr_rights:'Все права защищены.', fr_slogan:'Образование без границ 🌍',
+    sl_vac:'Вакансии', vac_title:'Присоединяйтесь к команде GES',
+    vac_desc:'Мы всегда в поиске талантливых педагогов и специалистов, которые разделяют наши ценности и готовы вдохновлять студентов каждый день.',
+    vac_r1:'Преподаватель английского языка', vac_d1:'Опыт от 1 года, знание английского C1+, желательно CELTA/DELTA. Полная или частичная занятость.',
+    vac_r2:'Педагог Монтессори / детских программ', vac_d2:'Опыт работы с детьми, педагогическое образование, любовь к детям и творческий подход.',
+    vac_r3:'Преподаватель IT / Робототехники', vac_d3:'Знание Python, Scratch, опыт преподавания или работы в IT. Современный подход к обучению.',
+    vac_ft:'Полная занятость', vac_pt:'Частичная',
+    vac_cta_text:'Не нашли подходящую вакансию? Отправьте резюме — мы рассмотрим вашу кандидатуру.',
+    vac_cta_btn:'Отправить резюме в WhatsApp',
+    // MVV
+    sl_mvv:'ДНК компании', mvv_title:'Кто мы и зачем мы здесь',
+    mvv_v_label:'Видение', mvv_v_title:'Ведущий образовательный центр Казахстана',
+    mvv_v_text:'Стать ведущим образовательным центром Казахстана, известным успехами студентов и своим образцовым сервисом.',
+    mvv_m_label:'Миссия', mvv_m_title:'Лидеры общества XXI века',
+    mvv_m_text:'Мотивировать и подготовить наших студентов стать лидерами общества, формируя навыки XXI века, способствующие их академическому, духовному, социальному и эмоциональному развитию.',
+    mvv_c_label:'Ценности', mvv_c_title:'Наши принципы',
+    mvv_c1:'Непрерывное обучение', mvv_c2:'Честность и ответственность за свои поступки',
+    mvv_c3:'Создание доверительной среды', mvv_c4:'Преданность своему делу',
+    // Stats sub-sections
+    ssl_exams:'🎯 Результаты экзаменов', ssl_teachers:'👨‍🏫 Квалификация преподавателей',
+    se_ielts_name:'Студентов сдали IELTS', se_ielts_note:'Средний балл наших студентов', se_avg:'средний балл',
+    se_sat_name:'Студентов сдали SAT', se_sat_note:'Готовим к поступлению в топ-вузы',
+    se_nu_name:'Поступили в НУ', se_nu_note:'Наши студенты — в числе лучших абитуриентов страны',
+    st_delta_name:'Преподавателя с DELTA', st_delta_note:'Высший международный сертификат преподавания английского языка',
+    st_celta_name:'Преподавателей с CELTA', st_celta_note:'Сертифицированные специалисты Cambridge Assessment English',
+    st_top_pill:'Высшая категория', st_top_name:'Преподавателей', st_top_note:'Педагоги высшей квалификационной категории',
+    sl_teachers:'Наши преподаватели', teachers_title:'Команда мирового уровня', teachers_cta:'Записаться на урок',
+    teachers_banner_title:'Наши преподаватели — ваш главный ресурс',
+    teachers_banner_desc:'Каждый педагог GES прошёл строгий отбор. DELTA, CELTA, высшая категория — это не просто сертификаты, это гарантия качества каждого урока.',
+    // Services
+    sl_services:'Наши услуги', sv_title:'Выберите свою программу', sv_enroll:'Записаться на бесплатный пробный урок',
+    sv1_title:'Школьные предметы / ЕНТ', sv1_tag:'ЕНТ / Школа',
+    sv1_desc:'Индивидуальные и групповые занятия по всем школьным дисциплинам. Интенсивная подготовка к ЕНТ с проверенной методикой и авторскими материалами — повышаем балл гарантированно.',
+    sv2_title:'Английский · Русский · Турецкий · Корейский', sv2_tag:'4 языка',
+    sv2_desc:'Изучение четырёх языков с нуля до продвинутого уровня. Коммуникативный метод, нативные носители, живая практика с первого урока. Группы по возрасту и уровню.',
+    sv3_title:'Подготовка к SAT / IELTS', sv3_tag:'Популярное',
+    sv3_desc:'Стратегический подход к международным экзаменам. Авторские материалы, пробные тесты в реальных условиях, разбор ошибок. Средний балл IELTS — 6.5, SAT — 1400+.',
+    sv4_title:'IT / Робототехника',
+    sv4_desc:'Программирование, веб-разработка и робототехника для детей и взрослых. Реальные проекты с первых занятий, современные языки: Python, Scratch, JavaScript. Старт в digital-профессии.',
+    sv5_title:'Сингапурская математика', sv5_tag:'Математика',
+    sv5_desc:'Методика №1 в мире по рейтингу PISA. Развивает логическое мышление и нестандартный подход к задачам. Подходит с 1 класса — дети понимают математику, а не зубрят правила.',
+    sv6_title:'Монтессори для детей', sv6_tag:'Дети 2–6 лет',
+    sv6_desc:'Развивающая среда для детей от 2 лет по международной методике Монтессори. Самостоятельность, творческое мышление и любовь к познанию — через игру, исследование и свободный выбор.',
+    sv7_title:'Профориентация / Study Abroad', sv7_tag2:'Профориентация',
+    sv7_desc:'Помогаем выбрать профессию, университет и страну. Полное сопровождение при поступлении в вузы США, Великобритании, Европы и Азии — от выбора специальности до подачи документов. Более 100 студентов уже успешно учатся за рубежом.',
+    // Founder
+    founder_label:'Слово основателя', founder_name:'Дилором Мирсалиева', founder_role:'Основатель УЦ GES',
+    founder_quote:'Ты сияешь не тогда, когда копируешь других, а тогда, когда остаёшься собой — уникальным, особенным и смелым. И всегда помни: единственная сила, которая ведёт тебя к этому свету, единственный ключ, открывающий любые двери — это образование.',
+    history_label:'История, которая вдохновляет', history_title:'Мечта, которая изменила тысячи судеб',
+    history_p1:'Двадцать лет назад Дилором Мирсалиева жила одной простой, но глубокой мечтой — дать каждому ребёнку из самой обычной школы шанс увидеть мир. Не деньги, не связи — только знания, труд и вера в себя.',
+    history_p2:'9 сентября 2013 года эта мечта обрела форму. Два маленьких кабинета. Два преподавателя. 130 детей с горящими глазами. Никто не знал, что это — только начало.',
+    history_p3:'Сегодня GES — это 4 филиала в Шымкенте и Туркестанской области, более 5 000 выпускников в университетах по всему миру, тысячи изменённых судеб. Но в сердце каждого урока по-прежнему живёт та же мечта — помочь каждому найти свой путь к свету.',
+    ms1_title:'Открытие GES', ms1_desc:'2 кабинета, 2 преподавателя, 130 учеников — и одна большая мечта',
+    ms2_title:'Первые международные результаты', ms2_desc:'Выпускники GES начали поступать в зарубежные университеты',
+    ms3_title:'Расширение сети', ms3_desc:'Открытие новых филиалов в Шымкенте и Туркестанской области',
+    ms4_title:'GES сегодня', ms4_desc:'4 филиала, 5 000+ выпускников, 100+ студентов учатся за рубежом',
+  },
+  en: {
+    logo_sub:'Global Education Sayram',
+    n_about:'About', n_results:'Results', n_programs:'Programs',
+    n_teachers:'Teachers', n_vacancies:'Careers', n_contacts:'Contact',
+    h_badge:'#1 Educational Center in Kazakhstan',
+    h_t1:'Your path to', h_t2:'world-class education', h_t3:'starts here',
+    h_sub:'GES is more than courses — it\'s an ecosystem for those who aim higher: IELTS, SAT, TOEFL, language programs and guidance to the world\'s top universities.',
+    h_cta1:'Book a Consultation and Build Your Path', h_cta2:'GES Anthem',
+    hs_years:'Years', hs_students:'Graduates', hs_rate:'Success Rate',
+    sl_achieve:'Our Achievements', st_title:'GES by the Numbers',
+    st_desc:'Every number is a real student success story.',
+    s1n:'Graduates', s1d:'students have completed our programs',
+    s2n:'Countries',  s2d:'where our graduates enrolled',
+    s3n:'Success',    s3d:'reached their target score',
+    s4n:'Years',      s4d:'of international education experience',
+    sl_about:'About Us', ab_title:'Global Education Sayram — more than a school',
+    ab_text:'GES was founded with one mission — to give every student access to world-class education. Our certified teachers, proprietary methods and proven programs help thousands reach their goals: from IELTS to enrollment in universities across Europe, the US and Asia.',
+    ac_cert:'Certified',
+    f1h:'Certified Programs',  f1p:'Officially accredited international-level courses',
+    f2h:'Expert Teachers',     f2p:'Native speakers and certified educators',
+    f3h:'Personal Tracking',   f3p:'Individual progress and feedback for every student',
+    sl_progs:'Programs', pr_title:'Choose Your Path', pr_all:'All Programs →',
+    p1d:'Comprehensive exam prep. Guaranteed results from band 6.5.',
+    p1t:'Popular',
+    p2d:'Strategies and practice for high SAT/ACT scores for US universities.',
+    p2t:'University',
+    p3h:'Conversational English', p3d:'Live dialogues and situational practice with native speakers.',
+    p4h:'Kids Courses',          p4d:'Fun English for children from age 5 through creativity.',
+    p5h:'Corporate English',     p5d:'Business English for companies. Flexible format and group rates.',
+    p6h:'Study Abroad',          p6d:'Full guidance for enrollment in US, UK, European and Asian universities.',
+    sl_cta:'Start Now', ct_title:'Ready for your first step?',
+    ct_desc:'Sign up for a free trial lesson. Our managers respond within 15 minutes.',
+    ct_wa:'Message on WhatsApp', ct_call:'Call Us', ct_follow:'Follow us',
+    fd_desc:'Next-generation education center.',
+    fc_nav:'Navigation', fc_progs:'Services', fc_cont:'Contact',
+    fr_rights:'All rights reserved.', fr_slogan:'Education without borders 🌍',
+    sl_vac:'Careers', vac_title:'Join the GES Team',
+    vac_desc:'We are always looking for talented educators and specialists who share our values and are ready to inspire students every day.',
+    vac_r1:'English Language Teacher', vac_d1:'1+ year experience, C1+ English, CELTA/DELTA preferred. Full or part-time.',
+    vac_r2:'Montessori / Children\'s Programs Teacher', vac_d2:'Experience working with children, education background, love for kids and a creative approach.',
+    vac_r3:'IT / Robotics Teacher', vac_d3:'Knowledge of Python, Scratch, teaching or IT experience. Modern approach to education.',
+    vac_ft:'Full-time', vac_pt:'Part-time',
+    vac_cta_text:'Didn\'t find the right opening? Send your CV — we\'ll review your application.',
+    vac_cta_btn:'Send CV via WhatsApp',
+    // MVV
+    sl_mvv:'Company DNA', mvv_title:'Who We Are and Why We Are Here',
+    mvv_v_label:'Vision', mvv_v_title:'Leading Educational Center of Kazakhstan',
+    mvv_v_text:'To become the leading educational center of Kazakhstan, known for student success and exemplary service.',
+    mvv_m_label:'Mission', mvv_m_title:'Society Leaders of the 21st Century',
+    mvv_m_text:'To motivate and prepare our students to become leaders of society by developing 21st-century skills that support their academic, spiritual, social and emotional growth.',
+    mvv_c_label:'Values', mvv_c_title:'Our Principles',
+    mvv_c1:'Continuous learning', mvv_c2:'Honesty and accountability for one\'s actions',
+    mvv_c3:'Building a culture of trust', mvv_c4:'Dedication to our purpose',
+    // Stats sub-sections
+    ssl_exams:'🎯 Exam Results', ssl_teachers:'👨‍🏫 Teacher Qualifications',
+    se_ielts_name:'Students passed IELTS', se_ielts_note:'Average score of our students', se_avg:'average score',
+    se_sat_name:'Students passed SAT', se_sat_note:'Preparing students for top universities',
+    se_nu_name:'Enrolled at NU', se_nu_note:'Our students rank among the top applicants in the country',
+    st_delta_name:'Teachers with DELTA', st_delta_note:'The highest international certificate in English language teaching',
+    st_celta_name:'Teachers with CELTA', st_celta_note:'Certified specialists by Cambridge Assessment English',
+    st_top_pill:'Top Category', st_top_name:'Teachers', st_top_note:'Educators with the highest professional qualification category',
+    sl_teachers:'Our Teachers', teachers_title:'A World-Class Team', teachers_cta:'Book a Lesson',
+    teachers_banner_title:'Our Teachers Are Your Greatest Resource',
+    teachers_banner_desc:'Every GES teacher passed a rigorous selection process. DELTA, CELTA, top qualification — not just certificates, but a guarantee of quality in every lesson.',
+    // Services
+    sl_services:'Our Services', sv_title:'Choose Your Program', sv_enroll:'Sign Up for a Free Trial Lesson',
+    sv1_title:'School Subjects / ENT Prep', sv1_tag:'ENT / School',
+    sv1_desc:'Individual and group classes across all school subjects. Intensive ENT preparation with proven methodology and proprietary materials — guaranteed score improvement.',
+    sv2_title:'English · Russian · Turkish · Korean', sv2_tag:'4 Languages',
+    sv2_desc:'Learn four languages from beginner to advanced. Communicative method, native speakers, live practice from lesson one. Groups by age and level.',
+    sv3_title:'SAT / IELTS Preparation', sv3_tag:'Popular',
+    sv3_desc:'Strategic approach to international exams. Proprietary materials, mock tests in real conditions, detailed error analysis. Average IELTS — 6.5, SAT — 1400+.',
+    sv4_title:'IT / Robotics',
+    sv4_desc:'Programming, web development and robotics for children and adults. Real projects from day one, modern languages: Python, Scratch, JavaScript. Your start in digital careers.',
+    sv5_title:'Singapore Mathematics', sv5_tag:'Mathematics',
+    sv5_desc:'The world\'s #1 math methodology by PISA rankings. Develops logical thinking and creative problem-solving from Grade 1 — students understand math, not just memorize rules.',
+    sv6_title:'Montessori for Children', sv6_tag:'Ages 2–6',
+    sv6_desc:'Developmental environment for children from age 2 based on the international Montessori method. Independence, creative thinking and love of learning through play and exploration.',
+    sv7_title:'Career Guidance / Study Abroad', sv7_tag2:'Career Guidance',
+    sv7_desc:'We help choose a profession, university and country. Full support for enrollment in universities in the US, UK, Europe and Asia. Over 100 students are already studying abroad successfully.',
+    // Founder
+    founder_label:'A Word from the Founder', founder_name:'Dilorom Mirsaliyeva', founder_role:'Founder of GES',
+    founder_quote:'You shine not when you copy others, but when you remain yourself — unique, special and bold. And always remember: the only force that leads you to that light, the only key that opens any door — is education.',
+    history_label:'A Story That Inspires', history_title:'A Dream That Changed Thousands of Lives',
+    history_p1:'Twenty years ago, Dilorom Mirsaliyeva lived one simple but profound dream — to give every child from an ordinary school the chance to see the world. Not money, not connections — only knowledge, hard work and belief in oneself.',
+    history_p2:'On September 9, 2013, that dream took shape. Two small classrooms. Two teachers. 130 children with shining eyes. Nobody knew this was only the beginning.',
+    history_p3:'Today GES is 4 branches across Shymkent and the Turkestan region, over 5,000 graduates at universities around the world, thousands of lives transformed. But in the heart of every lesson lives the same dream — to help everyone find their own path to the light.',
+    ms1_title:'GES Opens', ms1_desc:'2 classrooms, 2 teachers, 130 students — and one big dream',
+    ms2_title:'First International Results', ms2_desc:'GES graduates began enrolling in universities abroad',
+    ms3_title:'Network Expansion', ms3_desc:'New branches opened in Shymkent and the Turkestan region',
+    ms4_title:'GES Today', ms4_desc:'4 branches, 5,000+ graduates, 100+ students studying abroad',
+  },
+  kz: {
+    logo_sub:'Global Education Sayram',
+    n_about:'Біз туралы', n_results:'Нәтижелер', n_programs:'Бағдарламалар',
+    n_teachers:'Оқытушылар', n_vacancies:'Бос орындар', n_contacts:'Байланыс',
+    h_badge:'№1 — Қазақстанның білім орталығы',
+    h_t1:'Дүниежүзілік', h_t2:'білімге апаратын жол', h_t3:'осында басталады',
+    h_sub:'GES — жай ғана курстар емес. Бұл IELTS, SAT, TOEFL, тілдік бағдарламалар және үздік университеттерге қабылдануға арналған экожүйе.',
+    h_cta1:'Кеңесуге жазылу және траектория құру', h_cta2:'GES Гимні',
+    hs_years:'Жыл жұмыс', hs_students:'Түлектер', hs_rate:'Сәттілік',
+    sl_achieve:'Біздің жетістіктер', st_title:'GES сандарда',
+    st_desc:'Әрбір сан — студенттеріміздің нақты табыс тарихы.',
+    s1n:'Түлектер',    s1d:'студент бағдарламаларымызды аяқтады',
+    s2n:'Ел',          s2d:'түлектеріміз оқуға қабылданған',
+    s3n:'Сәттілік',    s3d:'мақсатты балға жетті',
+    s4n:'Жыл тәжірибе', s4d:'халықаралық білім саласында',
+    sl_about:'Біз туралы', ab_title:'Global Education Sayram — мектептен артық',
+    ab_text:'GES бір миссиямен құрылды — әр студентке дүниежүзілік деңгейдегі білімге қол жеткізу мүмкіндігін беру. Сертификатталған оқытушылар мен тексерілген бағдарламалар мыңдаған студентке мақсатқа жетуге көмектеседі.',
+    ac_cert:'Сертификат',
+    f1h:'Сертификатталған бағдарламалар', f1p:'Ресми аккредитацияланған курстар',
+    f2h:'Тәжірибелі оқытушылар',         f2p:'Нативті және сертификатталған педагогтар',
+    f3h:'Жеке бақылау',                  f3p:'Әрбір студент үшін жеке прогресс',
+    sl_progs:'Бағдарламалар', pr_title:'Өз жолыңды таңда', pr_all:'Барлық бағдарламалар →',
+    p1d:'Халықаралық емтихандарға кешенді дайындық. 6.5 балдан кепілдендірілген нәтиже.',
+    p1t:'Танымал',
+    p2d:'Американдық университеттерге түсуге арналған стратегиялар мен тәжірибе.',
+    p2t:'Университет',
+    p3h:'Сөйлесу ағылшын тілі', p3d:'Тілі жетік адамдармен тірі диалог және тәжірибе.',
+    p4h:'Балалар курстары',      p4d:'5 жастан бастап балаларға ойын арқылы оқыту.',
+    p5h:'Корпоративтік ағылшын', p5d:'Компаниялар мен мамандарға деловой ағылшын тілі.',
+    p6h:'Шетелде оқу',           p6d:'АҚШ, Ұлыбритания, Еуропа, Азия университеттеріне сүйемелдеу.',
+    sl_cta:'Қазір бастаңыз', ct_title:'Алғашқы қадамға дайынсыз ба?',
+    ct_desc:'Тегін сынақ сабағына жазылыңыз. 15 минут ішінде жауап береміз.',
+    ct_wa:'WhatsApp жазу', ct_call:'Қоңырау шалу', ct_follow:'Біз әлеуметтік желіде',
+    fd_desc:'Жаңа буын білім орталығы.',
+    fc_nav:'Навигация', fc_progs:'Қызметтер', fc_cont:'Байланыс',
+    fr_rights:'Барлық құқықтар қорғалған.', fr_slogan:'Шексіз білім 🌍',
+    sl_vac:'Бос орындар', vac_title:'GES командасына қосылыңыз',
+    vac_desc:'Біз әрқашан біздің құндылықтарымызды бөлісетін және студенттерді күн сайын шабыттандыруға дайын талантты педагогтар мен мамандарды іздейміз.',
+    vac_r1:'Ағылшын тілі мұғалімі', vac_d1:'1+ жыл тәжірибе, C1+ ағылшын тілі, CELTA/DELTA болғаны жөн. Толық немесе жартылай жұмыс.',
+    vac_r2:'Монтессори / балалар бағдарламаларының педагогы', vac_d2:'Балалармен жұмыс тәжірибесі, педагогикалық білім, балаларды сүю және шығармашылық тәсіл.',
+    vac_r3:'IT / Робототехника мұғалімі', vac_d3:'Python, Scratch білімі, оқыту немесе IT тәжірибесі. Оқытуға заманауи тәсіл.',
+    vac_ft:'Толық жұмыс', vac_pt:'Жартылай',
+    vac_cta_text:'Қолайлы бос орын таппадыңыз ба? Түйіндемеңізді жіберіңіз — сіздің өтінішіңізді қарастырамыз.',
+    vac_cta_btn:'WhatsApp арқылы түйіндеме жіберу',
+    // MVV
+    sl_mvv:'Компанияның ДНҚ', mvv_title:'Біз кімбіз және неліктен осындамыз',
+    mvv_v_label:'Болашақ', mvv_v_title:'Қазақстанның жетекші білім орталығы',
+    mvv_v_text:'Қазақстанның жетекші білім беру орталығы болу — студенттерінің жетістіктерімен және үлгілі сервисімен танымал.',
+    mvv_m_label:'Миссия', mvv_m_title:'XXI ғасыр қоғамының лидерлері',
+    mvv_m_text:'Студенттерімізді қоғам лидерлері болуға ынталандыру және дайындау, академиялық, рухани, әлеуметтік және эмоционалдық дамуға ықпалететін XXI ғасыр дағдыларын қалыптастыру.',
+    mvv_c_label:'Құндылықтар', mvv_c_title:'Біздің принциптер',
+    mvv_c1:'Үздіксіз оқу', mvv_c2:'Адалдық және өз іс-әрекеттеріне жауапкершілік',
+    mvv_c3:'Сенімді орта құру', mvv_c4:'Өз ісіне берілгендік',
+    // Stats sub-sections
+    ssl_exams:'🎯 Емтихан нәтижелері', ssl_teachers:'👨‍🏫 Оқытушылар біліктілігі',
+    se_ielts_name:'Студент IELTS тапсырды', se_ielts_note:'Студенттеріміздің орташа балы', se_avg:'орташа балл',
+    se_sat_name:'Студент SAT тапсырды', se_sat_note:'Үздік университеттерге түсуге дайындаймыз',
+    se_nu_name:'НУ-ға түсті', se_nu_note:'Студенттеріміз елдің үздік абитуриенттері қатарында',
+    st_delta_name:'DELTA бар оқытушы', st_delta_note:'Ағылшын тілін оқытудың жоғарғы халықаралық сертификаты',
+    st_celta_name:'CELTA бар оқытушылар', st_celta_note:'Cambridge Assessment English сертификатталған мамандар',
+    st_top_pill:'Жоғары санат', st_top_name:'Оқытушылар', st_top_note:'Жоғары біліктілік санатындағы педагогтар',
+    sl_teachers:'Біздің оқытушылар', teachers_title:'Әлемдік деңгейдегі команда', teachers_cta:'Сабаққа жазылу',
+    teachers_banner_title:'Оқытушыларымыз — сіздің басты ресурсыңыз',
+    teachers_banner_desc:'GES-тің әрбір педагогы қатаң іріктеуден өтті. DELTA, CELTA, жоғары санат — бұл жай сертификаттар емес, әр сабақтың сапасының кепілі.',
+    // Services
+    sl_services:'Біздің қызметтер', sv_title:'Өз бағдарламаңды таңда', sv_enroll:'Тегін сынақ сабағына жазылу',
+    sv1_title:'Мектеп пәндері / ҰБТ', sv1_tag:'ҰБТ / Мектеп',
+    sv1_desc:'Барлық мектеп пәндері бойынша жеке және топтық сабақтар. Тексерілген әдістеме мен авторлық материалдармен ҰБТ-ға интенсивті дайындық — баллды кепілдікпен арттырамыз.',
+    sv2_title:'Ағылшын · Орыс · Түрік · Корей', sv2_tag:'4 тіл',
+    sv2_desc:'Төрт тілді нөлден жоғары деңгейге дейін оқыту. Коммуникативтік әдіс, нативті спикерлер, бірінші сабақтан тірі тәжірибе. Жас пен деңгей бойынша топтар.',
+    sv3_title:'SAT / IELTS дайындығы', sv3_tag:'Танымал',
+    sv3_desc:'Халықаралық емтихандарға стратегиялық тәсіл. Авторлық материалдар, нақты жағдайларда сынақ тесттер, қателерді талдау. IELTS орташа балы — 6.5, SAT — 1400+.',
+    sv4_title:'IT / Робототехника',
+    sv4_desc:'Балалар мен ересектерге арналған бағдарламалау, веб-әзірлеу және робототехника. Бірінші сабақтан нақты жобалар, заманауи тілдер: Python, Scratch, JavaScript.',
+    sv5_title:'Сингапур математикасы', sv5_tag:'Математика',
+    sv5_desc:'PISA рейтингі бойынша дүниежүзінде №1 әдістеме. 1 сыныптан логикалық ойлауды дамытады — балалар математиканы түсінеді, жаттап алмайды.',
+    sv6_title:'Балаларға арналған Монтессори', sv6_tag:'2–6 жас',
+    sv6_desc:'Монтессори халықаралық әдістемесі бойынша 2 жастан бастап балаларға дамытушы орта. Өзіндік, шығармашылық ойлау және ойын арқылы тану.',
+    sv7_title:'Кәсіпбағдар / Study Abroad', sv7_tag2:'Кәсіпбағдар',
+    sv7_desc:'Мамандық, университет және ел таңдауға көмектесеміз. АҚШ, Ұлыбритания, Еуропа және Азия университеттеріне түсуде толық сүйемелдеу. 100-ден астам студент шетелде оқуда.',
+    // Founder
+    founder_label:'Негізшінің сөзі', founder_name:'Диларам Мирсалиева', founder_role:'GES оқу орталығының негізшісі',
+    founder_quote:'Сен басқаларды көшіргенде емес, өзің болғанда жарқырайсың — бірегей, ерекше және батыл. Және әрқашан есіңде болсын: сені сол жарыққа апаратын жалғыз күш, кез келген есікті ашатын жалғыз кілт — бұл білім.',
+    history_label:'Шабыт беретін тарих', history_title:'Мыңдаған тағдырды өзгерткен арман',
+    history_p1:'Жиырма жыл бұрын Диларам Мирсалиева бір қарапайым, бірақ терең арманмен өмір сүрді — қарапайым мектептегі әр балаға әлемді көру мүмкіндігін беру. Ақша да, байланыс та емес — тек білім, еңбек және өзіне сенім.',
+    history_p2:'2013 жылдың 9 қыркүйегінде бұл арман нақты бейнеге ие болды. Екі кішкентай кабинет. Екі оқытушы. Жанарлары жарқыраған 130 бала. Бұл тек бастама екенін ешкім білмеді.',
+    history_p3:'Бүгін GES — Шымкент пен Түркістан облысында 4 филиал, бүкіл әлемдегі университеттерде 5 000-нан астам түлек, мыңдаған өзгерген тағдыр. Бірақ әр сабақтың жүрегінде сол арман тіршілік етеді — әркімге өз жолын табуға көмектесу.',
+    ms1_title:'GES ашылды', ms1_desc:'2 кабинет, 2 оқытушы, 130 оқушы — және бір үлкен арман',
+    ms2_title:'Алғашқы халықаралық нәтижелер', ms2_desc:'GES түлектері шетелдік университеттерге түсе бастады',
+    ms3_title:'Желіні кеңейту', ms3_desc:'Шымкент пен Түркістан облысында жаңа филиалдар ашылды',
+    ms4_title:'GES бүгін', ms4_desc:'4 филиал, 5 000+ түлек, 100+ студент шетелде оқуда',
+  }
+};
+
+let lang = 'ru';
+function setLang(l) {
+  lang = l;
+  const t = T[l];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    if (t[el.dataset.i18n]) el.textContent = t[el.dataset.i18n];
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+  document.documentElement.lang = l;
+}
+document.querySelectorAll('.lang-btn').forEach(b => b.addEventListener('click', () => setLang(b.dataset.lang)));
+
+
+/* ── STICKY HEADER ── */
+const hdr = document.getElementById('hdr');
+const onScroll = () => hdr.classList.toggle('scrolled', scrollY > 40);
+addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+
+/* ── MOBILE MENU ── */
+const mToggle = document.getElementById('mToggle');
+const mNav    = document.getElementById('mobileNav');
+mToggle.addEventListener('click', () => mNav.classList.toggle('open'));
+mNav.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => mNav.classList.remove('open')));
+
+
+/* ── COUNTER ANIMATION ── */
+function runCounter(el) {
+  const target = +el.dataset.to;
+  const dur = 1800;
+  const inc = target / (dur / 16);
+  let v = 0;
+  const t = setInterval(() => {
+    v += inc;
+    if (v >= target) { v = target; clearInterval(t); }
+    el.textContent = Math.floor(v).toLocaleString();
+  }, 16);
+}
+
+
+/* ── INTERSECTION OBSERVER (reveal + counters) ── */
+const revealIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in');
+    e.target.querySelectorAll('.cnt').forEach(runCounter);
+    revealIO.unobserve(e.target);
+  });
+}, { threshold: 0.14 });
+
+document.querySelectorAll('.reveal').forEach(el => revealIO.observe(el));
+
+// Also observe stat cards individually for counters
+const cntIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.querySelectorAll('.cnt').forEach(runCounter);
+    cntIO.unobserve(e.target);
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.stat-card').forEach(el => cntIO.observe(el));
+
+
+/* ── HERO BACKGROUND IMAGE ── */
+// CSS already references images/interior.jpg — browser loads it automatically.
+// No JS needed. Missing file = transparent div = fallback gradient shows.
+
+
+/* ── SMOOTH ANCHOR SCROLL ── */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const tgt = document.querySelector(a.getAttribute('href'));
+    if (tgt) {
+      e.preventDefault();
+      scrollTo({ top: tgt.offsetTop - 76, behavior: 'smooth' });
+    }
+  });
+});
+</script>
+
+
+</body>
+</html>
